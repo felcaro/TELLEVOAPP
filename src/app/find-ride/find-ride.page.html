@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Buscar Transporte</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let ride of availableRides">
+      <ion-label>
+        <h2>Conductor: {{ ride.driverName }}</h2>
+        <p>Costo por persona: {{ ride.cost }}</p>
+      </ion-label>
+      <ion-button slot="end" (click)="requestRide(ride)">Solicitar</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,13 @@
+:root {
+    /* Estilos claros */
+    --ion-color-primary: #4A90E2;
+    --ion-color-primary-contrast: #ffffff;
+    /* ... resto de estilos claros ... */
+  }
+  
+  .dark {
+    --ion-color-primary: #428cff; /* Color para el modo oscuro */
+    --ion-color-primary-contrast: #ffffff;
+    /* ... resto de estilos oscuros ... */
+  }
+  

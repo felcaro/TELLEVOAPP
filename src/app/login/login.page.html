@@ -1,0 +1,33 @@
+<ion-content class="ion-padding">
+  <div class="logo-in">
+    <img src="assets/autologo.svg" class="logo" alt="Logo">
+    <h1>TeLlevoApp</h1>
+    <ion-icon id="icono" (click)="toggleTheme()" name="moon"></ion-icon>
+      <!-- ARREGLAR ESILO -->
+  </div>
+
+  <div class="titulo">
+    Inicia sesión
+  </div>
+
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Usuario</ion-label>
+      <ion-input type="text" [clearInput]="true" placeholder="Ingrese su usuario"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input clearOnEdit="false" [type]="showPassword ? 'text' : 'password'" [clearInput]="true" placeholder="Ingrese su clave"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-checkbox slot="start" (ionChange)="togglePasswordVisibility($event)"></ion-checkbox>
+      <ion-label>Mostrar Contraseña</ion-label>
+    </ion-item>
+
+    <ion-button expand="block" (click)="logIn()">Ingresar</ion-button>
+    <ion-button expand="block" fill="clear" (click)="goRegister()">No tienes Cuenta?</ion-button>
+  </form>
+  <p (click)="goHome()">No Por Ahora</p>
+</ion-content>

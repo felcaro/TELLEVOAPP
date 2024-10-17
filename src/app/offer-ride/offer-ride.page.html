@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ofrecer Viaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Origen</ion-label>
+      <ion-input type="text" [(ngModel)]="ride.origin" name="origin" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Destino</ion-label>
+      <ion-input type="text" [(ngModel)]="ride.destination" name="destination" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Fecha</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="ride.date" name="date" required></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Hora</ion-label>
+      <ion-datetime displayFormat="HH:mm" [(ngModel)]="ride.time" name="time" required></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Asientos disponibles</ion-label>
+      <ion-input type="number" [(ngModel)]="ride.seats" name="seats" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Precio por asiento</ion-label>
+      <ion-input type="number" [(ngModel)]="ride.price" name="price" required></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" class="ion-margin-top">Ofrecer Viaje</ion-button>
+  </form>
+</ion-content>
