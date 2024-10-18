@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class LoginPage {
   email: string = '';
   password: string = '';
+
+  
   private isDarkMode: boolean = false;
   showPassword: boolean = false; 
 
@@ -40,11 +42,11 @@ export class LoginPage {
   }
 
   logIn() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/tabs/home']);
   }
 
   goHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/tabs/home']);
   }
 
 

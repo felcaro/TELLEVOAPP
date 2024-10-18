@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -6,14 +7,33 @@ import { Component } from '@angular/core';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage {
-  name: string = '';     // Inicializado con un string vacío
-  email: string = '';    // Inicializado con un string vacío
-  password: string = ''; // Inicializado con un string vacío
 
-  constructor() { }
+  swConfirm: boolean = false;
+  sw: boolean = false;
 
-  onRegister() {
-    // Aquí iría la lógica para el registro (envío a backend, validaciones, etc.)
-    console.log('Registrando usuario:', this.name, this.email);
+  constructor(
+    private router: Router,
+    private renderer: Renderer2,
+    private el: ElementRef
+  ) { }
+
+
+  togglePasswordVisibility() {
+    this.sw = !this.sw; 
   }
+
+  goHome() {
+    this.router.navigate(['/tabs/home']);
+  }
+
+  register() {
+    // Validar los datos con funcionalidad más adelante
+    this.router.navigate(['/tabs/home']);
+  }
+
+  gologIn() {
+    this.router.navigate(['/login']);
+  }
+
+  
 }

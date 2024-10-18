@@ -1,17 +1,51 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Buscar Transporte</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Buscar Viajes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="presentAlert()">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        Precios
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+  
 </ion-header>
 
 <ion-content>
+  
   <ion-list>
-    <ion-item *ngFor="let ride of availableRides">
-      <ion-label>
-        <h2>Conductor: {{ ride.driverName }}</h2>
-        <p>Costo por persona: {{ ride.cost }}</p>
+    <ion-item *ngFor="let viaje of viajes" (click)="abrirModal(viaje)">
+      <img [src]="viaje.imagenAuto" class="car-image" alt="Foto del auto">
+      <ion-label class="car-details">
+        <h2>{{ viaje.chofer }}</h2>
+        <p class="departure-location">{{ viaje.lugarSalida }}</p>
       </ion-label>
-      <ion-button slot="end" (click)="requestRide(ride)">Solicitar</ion-button>
+      <div class="seats-available">{{ viaje.asientos }} Asientos</div>
     </ion-item>
   </ion-list>
+
+  <ion-modal [isOpen]="mostrarModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title slot="start">Detalles del Viaje</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="modal-content">
+        <img [src]="viajeSeleccionado.imagenAuto" class="car-image-large" alt="Foto del auto">
+        <h2>{{ viajeSeleccionado.chofer }}</h2>
+        <p>Salida: {{ viajeSeleccionado.lugarSalida }}</p>
+        <p>Destino: {{ viajeSeleccionado.destino }}</p>
+        <p>Fecha: {{ viajeSeleccionado.fecha }}</p>
+        <p>Hora: {{ viajeSeleccionado.hora }}</p>
+        <p>Asientos disponibles: {{ viajeSeleccionado.asientos }}</p>
+        <ion-button (click)="iralChat()">Ir al Chat</ion-button>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
 </ion-content>

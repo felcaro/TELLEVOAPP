@@ -1,26 +1,38 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Registro</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <div id="contenedor">
 
-<ion-content>
-  <form (submit)="onRegister()">
-    <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input type="text" [(ngModel)]="name" name="name"></ion-input>
-    </ion-item>
+    <div class="logo-in">
+      <img src="assets/autologo.svg" class="logo">
+      <h1>TeLlevoApp</h1>
+    </div>
 
-    <ion-item>
-      <ion-label position="floating">Correo Electrónico</ion-label>
-      <ion-input type="email" [(ngModel)]="email" name="email"></ion-input>
-    </ion-item>
+    <div class="titulo">
+      Registro
+    </div>
 
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
-    </ion-item>
+    <ion-input fill="outline" label="Usuario" labelPlacement="floating" [clearInput]="true"
+      placeholder="Ingrese su usuario"></ion-input>
 
-    <ion-button expand="full" type="submit">Registrarse</ion-button>
-  </form>
+    <ion-input fill="outline" label="Nombre Completo" labelPlacement="floating" [clearInput]="true"
+      placeholder="Ingrese su nombre completo"></ion-input>
+
+    <ion-input fill="outline" label="Correo Electrónico" labelPlacement="floating" [clearInput]="true"
+      placeholder="Ingrese su correo electrónico"></ion-input>
+
+    <ion-input fill="outline" clearOnEdit="false" label="Contraseña" labelPlacement="floating" [clearInput]="true"
+      placeholder="Ingrese su contraseña" type="{{sw?'text':'password'}}">
+      
+    </ion-input>
+
+    <ion-input fill="outline" clearOnEdit="false" label="Confirmar Contraseña" labelPlacement="floating" [clearInput]="true"
+      placeholder="Confirme su contraseña" type="{{sw?'text':'password'}}">
+      
+    </ion-input>
+    <ion-checkbox justify="start" labelPlacement="end" (click)="togglePasswordVisibility()">Mostar Contraseña</ion-checkbox>
+
+    <ion-button color="primary" (click)="register()">Registrarse</ion-button>
+    <ion-button color="primary" (click)="gologIn()">Ya Tienes Cuenta?</ion-button>
+    <p (click)="goHome()">No Por Ahora</p>
+  </div>
 </ion-content>
+

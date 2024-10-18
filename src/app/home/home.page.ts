@@ -11,7 +11,23 @@ export class HomePage {
   nextRideTime: string = '08:00 AM';
   nextRideDriver: string = 'Juan Pérez';
 
+  // Dark mode
+  private isDarkMode: boolean = false;
+  showPassword: boolean = false; 
+
   constructor(private navCtrl: NavController) {}
+
+  // DARK MODE NO BORRAR
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('isDarkMode', JSON.stringify(this.isDarkMode));
+    this.applyTheme();
+  }
+  private applyTheme() {
+    document.body.classList.toggle('dark', this.isDarkMode);
+  }
+
+
 
   findRide() {
     this.navCtrl.navigateForward('/tabs/find-ride');
