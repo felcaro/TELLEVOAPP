@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/profile"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Volver</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Editar Perfil</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="contenedor">
+    <div class="titulo">Editar Perfil</div>
+
+    <!-- Sección del Perfil -->
+    <section id="userdata">
+      <form>
+        <ion-item>
+          <ion-label>Foto de Perfil</ion-label>
+          <ion-avatar>
+            <img src="assets/default-avatar.png" alt="Foto de Perfil">
+          </ion-avatar>
+        </ion-item>
+  
+          <ion-input fill="outline" label="{{ usuarioConectado?.nombreCompleto || 'Nombre Completo' }}" labelPlacement="floating" [clearInput]="true"
+            placeholder="Cambiar su nombre completo"></ion-input>
+
+          <ion-input fill="outline" label="{{ usuarioConectado?.correoElectronico || 'Correo Electrónico' }}" labelPlacement="floating" type="email" [clearInput]="true"
+            placeholder="Cambiar su correo electrónico"></ion-input>
+
+            <ion-item>
+              <ion-select placeholder="Cambiar su tipo usuario" label="{{ usuarioConectado?.tipoRegistro || 'Cambiar Tipo' }}" label-placement="floating">
+                <ion-select-option value="conductor">Conductor</ion-select-option>
+                <ion-select-option value="pasajero">Pasajero</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          <ion-input fill="outline" clearOnEdit="false" label="Cambiar Contraseña" labelPlacement="floating" [clearInput]="true"
+          placeholder="Cambiar su contraseña" [type]="sw ? 'text' : 'password'"></ion-input>
+  
+          <ion-input fill="outline" clearOnEdit="false" label="Ingresar Contraseña Vieja" labelPlacement="floating" [clearInput]="true"
+          placeholder="Ingrese su contraseña" [type]="sw ? 'text' : 'password'"></ion-input>
+  
+        <ion-item lines="none">
+          <ion-checkbox (ionChange)="togglePasswordVisibility()" justify="start" labelPlacement="end">Mostrar Contraseña</ion-checkbox>
+        </ion-item>
+      </form>
+    </section>
+
+    <!-- Toggle para mostrar u ocultar los datos del auto -->
+    <ion-item>
+      <ion-toggle [disabled]="usuarioConectado?.tipoRegistro !== 'conductor'" (ionChange)="toggleDatosAuto($event)" justify="start" labelPlacement="end">Mostrar Datos del Auto</ion-toggle>
+    </ion-item>
+
+    <!-- Sección del Auto, solo visible si el usuario es conductor y el toggle está activado -->
+    <section id="auto" *ngIf="isConductor && mostrarDatosAuto">
+      <ion-item>
+        <ion-label>Marca y Modelo del Auto</ion-label>
+        <ion-input fill="outline" placeholder="Ingrese marca y modelo"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Color del Auto</ion-label>
+        <ion-input fill="outline" placeholder="Ingrese el color del auto"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Matrícula del Auto</ion-label>
+        <ion-input fill="outline" placeholder="Ingrese la matrícula del auto"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Foto del Auto</ion-label>
+        <ion-avatar>
+          <img src="assets/default-car.png" alt="Foto del Auto">
+        </ion-avatar>
+      </ion-item>
+    </section>
+
+    <ion-button expand="full" color="primary" (click)="confirmarCambios()">Guardar y Confirmar</ion-button>
+  </div>
+
+</ion-content>

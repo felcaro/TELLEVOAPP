@@ -45,6 +45,10 @@ const routes: Routes = [
   {
     path: 'detalle-viaje',
     loadChildren: () => import('./detalle-viaje/detalle-viaje.module').then( m => m.DetalleViajePageModule)
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   }
 
 ];

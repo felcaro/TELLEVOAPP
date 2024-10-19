@@ -1,4 +1,29 @@
+.titulo {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+ion-input {
+  color: #000000;
+  background: white;
+  border-radius: 8px;
+  border-color: 1px #000000;
+  margin-top: 10px;
+}
+
+p {
+  width: 100px;
+  text-decoration: underline;
+}
+
+.logo-in {
+  display: flex;
+  top: 0;
+  left: 0;
+  margin: 16px;
+}
+
 .logo {
-    width: 62px;
-    height: 62px;
-  }
+  width: 62px;
+  height: 62px;
+}

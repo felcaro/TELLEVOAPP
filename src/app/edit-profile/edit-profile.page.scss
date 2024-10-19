@@ -1,0 +1,40 @@
+#contenedor {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+  
+  .titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  // Sección del usuario
+  #userdata {
+    background-color: #3f3f3f; // Fondo blanco para la sección
+    border-radius: 8px; // Bordes redondeados
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Sombra para dar profundidad
+    padding: 20px; // Espaciado interno
+    margin-bottom: 20px; // Espacio entre secciones
+  }
+  
+  // Sección del auto
+  #auto {
+    background-color: #686868; // Fondo blanco para la sección
+    border-radius: 8px; // Bordes redondeados
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Sombra para dar profundidad
+    padding: 20px; // Espaciado interno
+    margin-bottom: 20px; // Espacio entre secciones
+  }
+  
+  // Estilo para el toggle
+  ion-toggle {
+    margin-bottom: 20px; // Espacio entre el toggle y la siguiente sección
+    background-color: #000000; // Fondo claro para el toggle
+    border-radius: 8px; // Bordes redondeados
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Sombra para dar profundidad
+    padding: 10px; // Espaciado interno
+  }
+  

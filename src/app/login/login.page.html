@@ -11,19 +11,18 @@
       Inicia sesión
     </div>
 
-    <form (ngSubmit)="onSubmit()">
-      <ion-input fill="outline" label="Usuario" labelPlacement="floating" [clearInput]="true"
-        placeholder="Ingrese su usuario"></ion-input>
+    <form>
+      <ion-input [(ngModel)]="correoElectronico" name="correoElectronico" fill="outline" label="Correo Electrónico" labelPlacement="floating" [clearInput]="true"
+        placeholder="Ingrese su correo electrónico" ></ion-input>
 
-      <ion-input fill="outline" clearOnEdit="false" label="Contraseña" labelPlacement="floating" [clearInput]="true"
-        placeholder="Ingrese su contraseña" [type]="showPassword ? 'text' : 'password'"></ion-input>
+      <ion-input [(ngModel)]="contrasena" name="contrasena" [counter]="true"
+      maxlength="20" fill="outline" clearOnEdit="false" label="Contraseña" labelPlacement="floating" [clearInput]="true"
+        placeholder="Ingrese su contraseña" [type]="sw ? 'text' : 'password'" ></ion-input>
 
-      <ion-checkbox justify="start" labelPlacement="end" (ionChange)="togglePasswordVisibility($event)">
-        Mostrar Contraseña
-      </ion-checkbox>
+      <ion-checkbox (ionChange)="togglePasswordVisibility()" justify="start" labelPlacement="end">Mostrar Contraseña</ion-checkbox>
 
       <ion-button expand="block" color="primary" (click)="logIn()">Ingresar</ion-button>
-      <ion-button expand="block" color="primary" fill="clear" (click)="goRegister()">No tienes Cuenta?</ion-button>
+      <ion-button expand="block" color="primary" (click)="goRegister()">No tienes Cuenta?</ion-button>
     </form>
 
     <p (click)="goHome()">No Por Ahora</p>

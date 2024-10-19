@@ -1,6 +1,5 @@
 <ion-content [fullscreen]="true">
   <div id="contenedor">
-
     <div class="logo-in">
       <img src="assets/autologo.svg" class="logo">
       <h1>TeLlevoApp</h1>
@@ -10,29 +9,34 @@
       Registro
     </div>
 
-    <ion-input fill="outline" label="Usuario" labelPlacement="floating" [clearInput]="true"
-      placeholder="Ingrese su usuario"></ion-input>
+    <form>
+      <ion-input [(ngModel)]="nombreCompleto" name="nombreCompleto" fill="outline" label="Nombre Completo" labelPlacement="floating" [clearInput]="true"
+        placeholder="Ingrese su nombre completo"></ion-input>
+    
+      <ion-input [(ngModel)]="correoElectronico" name="correoElectronico" fill="outline" label="Correo Electrónico" labelPlacement="floating" [clearInput]="true"
+        placeholder="Ingrese su correo electrónico"></ion-input>
+    
+      <ion-input [(ngModel)]="contrasena" name="contrasena" fill="outline" clearOnEdit="false" label="Contraseña" labelPlacement="floating" [clearInput]="true"
+        placeholder="Ingrese su contraseña" [type]="sw ? 'text' : 'password'">
+      </ion-input>
+    
+      <ion-input [(ngModel)]="confirmarContrasena" name="confirmarContrasena" fill="outline" clearOnEdit="false" label="Confirmar Contraseña" labelPlacement="floating" [clearInput]="true"
+        placeholder="Confirme su contraseña" [type]="sw ? 'text' : 'password'">
+      </ion-input>
+    
+      <ion-checkbox (ionChange)="togglePasswordVisibility()" justify="start" labelPlacement="end">Mostrar Contraseña</ion-checkbox>
+    
+      <ion-item>
+        <ion-select [(ngModel)]="tipoRegistro" name="tipoRegistro" label="Registrarse como" label-placement="floating">
+          <ion-select-option value="conductor">Conductor</ion-select-option>
+          <ion-select-option value="pasajero">Pasajero</ion-select-option>
+        </ion-select>
+      </ion-item>
+    
+      <ion-button color="primary" (click)="register()">Registrarse</ion-button>
+    </form>
 
-    <ion-input fill="outline" label="Nombre Completo" labelPlacement="floating" [clearInput]="true"
-      placeholder="Ingrese su nombre completo"></ion-input>
-
-    <ion-input fill="outline" label="Correo Electrónico" labelPlacement="floating" [clearInput]="true"
-      placeholder="Ingrese su correo electrónico"></ion-input>
-
-    <ion-input fill="outline" clearOnEdit="false" label="Contraseña" labelPlacement="floating" [clearInput]="true"
-      placeholder="Ingrese su contraseña" type="{{sw?'text':'password'}}">
-      
-    </ion-input>
-
-    <ion-input fill="outline" clearOnEdit="false" label="Confirmar Contraseña" labelPlacement="floating" [clearInput]="true"
-      placeholder="Confirme su contraseña" type="{{sw?'text':'password'}}">
-      
-    </ion-input>
-    <ion-checkbox justify="start" labelPlacement="end" (click)="togglePasswordVisibility()">Mostar Contraseña</ion-checkbox>
-
-    <ion-button color="primary" (click)="register()">Registrarse</ion-button>
-    <ion-button color="primary" (click)="gologIn()">Ya Tienes Cuenta?</ion-button>
-    <p (click)="goHome()">No Por Ahora</p>
+    <ion-button color="primary" (click)="gologIn()">¿Ya tienes cuenta?</ion-button>
+    <p (click)="goHome()">No por ahora</p>
   </div>
 </ion-content>
-
