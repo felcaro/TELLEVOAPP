@@ -92,6 +92,7 @@ export class EditProfilePage implements OnInit {
     
     // Actualizar currentUser en localStorage
     localStorage.setItem('currentUser', JSON.stringify(this.usuarioConectado));
+    this.goprofile();
   }
 
 

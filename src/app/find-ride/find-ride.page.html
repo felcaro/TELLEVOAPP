@@ -8,44 +8,48 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  
 </ion-header>
 
 <ion-content>
-  
   <ion-list>
+    <!-- Mostrar la lista de viajes desde el array de viajes cargados desde localStorage -->
     <ion-item *ngFor="let viaje of viajes" (click)="abrirModal(viaje)">
       <img [src]="viaje.imagenAuto" class="car-image" alt="Foto del auto">
       <ion-label class="car-details">
-        <h2>{{ viaje.chofer }}</h2>
-        <p class="departure-location">{{ viaje.lugarSalida }}</p>
+        <h2>{{ viaje.nombreChofer }}</h2>
+        <p class="departure-location">{{ viaje.origin }} - {{ viaje.destination }}</p>
       </ion-label>
-      <div class="seats-available">{{ viaje.asientos }} Asientos</div>
+      <div class="seats-available">{{ viaje.seats }} Asientos</div>
     </ion-item>
   </ion-list>
 
   <ion-modal [isOpen]="mostrarModal">
-  <ng-template>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title slot="start">Detalles del Viaje</ion-title>
-        <ion-buttons slot="end">
-          <ion-button (click)="cerrarModal()">Cerrar</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <div class="modal-content">
-        <img [src]="viajeSeleccionado.imagenAuto" class="car-image-large" alt="Foto del auto">
-        <h2>{{ viajeSeleccionado.chofer }}</h2>
-        <p>Salida: {{ viajeSeleccionado.lugarSalida }}</p>
-        <p>Destino: {{ viajeSeleccionado.destino }}</p>
-        <p>Fecha: {{ viajeSeleccionado.fecha }}</p>
-        <p>Hora: {{ viajeSeleccionado.hora }}</p>
-        <p>Asientos disponibles: {{ viajeSeleccionado.asientos }}</p>
-        <ion-button (click)="iralChat()">Ir al Chat</ion-button>
-      </div>
-    </ion-content>
-  </ng-template>
-</ion-modal>
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title slot="start">Detalles del Viaje</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <div class="modal-content">
+          <ion-button *ngIf="esCreadorDelViaje()" (click)="confirmarEliminacion()">Eliminar Viaje</ion-button>
+          <img [src]="viajeSeleccionado.imagenAuto" class="car-image-large" alt="Foto del auto">
+          <h2>{{ viajeSeleccionado.nombreChofer }}</h2>
+          <h1>{{ viajeSeleccionado.price }} CLP</h1>
+          <p>Salida: {{ viajeSeleccionado.origin }}</p>
+          <p>Destino: {{ viajeSeleccionado.destination }}</p>
+          <p>Fecha: {{ viajeSeleccionado.date }}</p>
+          <p>Hora: {{ viajeSeleccionado.time }}</p>
+          <p>Asientos disponibles: {{ viajeSeleccionado.seats }}</p>
+
+          <!-- Mostrar el botón de eliminar solo si el usuario es el creador del viaje -->
+          <ion-button >Aceptar Viaje</ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

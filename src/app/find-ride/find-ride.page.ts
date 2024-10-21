@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 
@@ -8,36 +8,9 @@ import { AlertController, ModalController } from '@ionic/angular';
   styleUrls: ['./find-ride.page.scss'],
 })
 export class FindRidePage implements OnInit {
-  viajes = [
-    {
-      imagenAuto: 'https://via.placeholder.com/80x60?text=Auto+1',
-      chofer: 'Juan Pérez',
-      lugarSalida: 'Santiago Centro',
-      destino: 'Valparaíso',
-      fecha: '2024-09-10',
-      hora: '08:00',
-      asientos: 3
-    },
-    {
-      imagenAuto: 'https://via.placeholder.com/80x60?text=Auto+2',
-      chofer: 'María Gómez',
-      lugarSalida: 'Providencia',
-      destino: 'Viña del Mar',
-      fecha: '2024-09-11',
-      hora: '09:00',
-      asientos: 2
-    },
-    {
-      imagenAuto: 'https://via.placeholder.com/80x60?text=Auto+3',
-      chofer: 'Luis Martínez',
-      lugarSalida: 'Las Condes',
-      destino: 'Rancagua',
-      fecha: '2024-09-12',
-      hora: '07:00',
-      asientos: 1
-    }
-  ];
 
+  viajes: any[] = [];
+  listaUsuarios: any[] = [];
   mostrarModal = false;
   viajeSeleccionado: any;
 
@@ -48,46 +21,41 @@ export class FindRidePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.cargarViajes();
+    this.cargarUsuarios();
+    this.asignarNombresChoferes();
+  }
+
+  cargarViajes() {
+    // Cargar los viajes desde localStorage
+    const listaViajes = JSON.parse(localStorage.getItem('listaViajes') || '[]');
+    this.viajes = listaViajes;
+  }
+
+  cargarUsuarios() {
+    // Cargar la lista de usuarios desde localStorage
+    this.listaUsuarios = JSON.parse(localStorage.getItem('listaUsuarios') || '[]');
+  }
+
+  asignarNombresChoferes() {
+    // Asignar el nombre del chofer basado en el correo
+    if (this.listaUsuarios && this.viajes) {
+      this.viajes.forEach(viaje => {
+        const usuario = this.listaUsuarios.find(u => u.correoElectronico === viaje.correoUsuario);
+        if (usuario) {
+          viaje.nombreChofer = usuario.nombreCompleto; // Asignar el nombre del chofer al viaje
+        } else {
+          viaje.nombreChofer = 'Desconocido'; // Si no se encuentra el usuario, asignar un valor por defecto
+        }
+      });
+    } else {
+      console.error('No se pudieron cargar los usuarios o viajes correctamente.');
+    }
   }
 
   abrirModal(viaje: any) {
     this.viajeSeleccionado = viaje;
     this.mostrarModal = true;
-  }
-
-  async iralChat() {
-    const alert = await this.alertController.create({
-      header: 'Ir al Chat',
-      message: '¿Estás seguro de que deseas inicar un chat con el conductor?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Cancelado');
-          }
-        },
-        {
-          text: 'Ir al Chat',
-          handler: () => {
-            this.goChat();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'El precio del pasaje debe ser conversado con el conductor del Vehículo',
-      message: 'Le aconsejamos que tome como referencia los precios de los colectivos locales',
-      buttons: ['Cerrar'],
-    });
-
-    await alert.present();
   }
 
   async cerrarModal() {
@@ -98,8 +66,55 @@ export class FindRidePage implements OnInit {
     this.mostrarModal = false;
   }
 
-  async goChat() {
-    await this.cerrarModal();
-    this.router.navigate(['/chat-car']);
+  esCreadorDelViaje(): boolean {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    return currentUser && currentUser.correoElectronico === this.viajeSeleccionado.correoUsuario;
+  }
+
+  async confirmarEliminacion() {
+    const alert = await this.alertController.create({
+      header: 'Eliminar Viaje',
+      message: '¿Estás seguro que deseas eliminar este viaje?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Eliminación cancelada.');
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.eliminarViaje();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  eliminarViaje() {
+    const listaViajes = JSON.parse(localStorage.getItem('listaViajes') || '[]');
+    const viajeIndex = listaViajes.findIndex((v: any) => v.id === this.viajeSeleccionado.id);
+
+    if (viajeIndex > -1) {
+      listaViajes.splice(viajeIndex, 1); // Eliminar el viaje de la lista
+      localStorage.setItem('listaViajes', JSON.stringify(listaViajes)); // Actualizar localStorage
+      this.cargarViajes(); // Recargar la lista
+      this.cerrarModal();
+      console.log('Viaje eliminado.');
+    }
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'El precio del pasaje debe ser conversado con el conductor del vehículo',
+      message: 'Le aconsejamos que tome como referencia los precios de los colectivos locales',
+      buttons: ['Cerrar'],
+    });
+
+    await alert.present();
   }
 }
