@@ -13,8 +13,8 @@ export class DetalleViajePage implements OnInit {
   public map: any;
   public distancia: string = '';
   public duracion: string = '';
-  public end: string = 'Salamanca 31 - melipilla'; //se puede dejar un destino fijo para que muestre el mapa 
-  public autocompleteItems: any[] = []; // Lista de lugares autocompletados esto todavia no lo entiendo bien pero nt xD
+  public end: string = 'Salamanca 31 - melipilla';
+  public autocompleteItems: any[] = []; 
   public directionsService: any;
   public directionsDisplay: any;
 

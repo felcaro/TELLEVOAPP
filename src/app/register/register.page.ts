@@ -10,7 +10,6 @@ import { AlertController } from '@ionic/angular';
 export class RegisterPage {
 
   // Variables usuario
-  usuario: string = '';
   nombreCompleto: string = '';
   correoElectronico: string = '';
   contrasena: string = '';
@@ -34,6 +33,7 @@ export class RegisterPage {
     await alert.present();
   }
 
+  // Método de registro
   register() {
     console.log('Intentando registrar al usuario...');
 
@@ -44,44 +44,42 @@ export class RegisterPage {
       return;
     }
 
-    // Datos del usuario a almacenar
-    const userData = {
+    // Obtener los datos actuales de localStorage
+    const storedData = localStorage.getItem('listaUsuarios');
+    let listaUsuarios = storedData ? JSON.parse(storedData) : [];
+
+    // Verificar si el correo ya está registrado
+    const usuarioExistente = listaUsuarios.find((user: { correoElectronico: string }) =>
+      user.correoElectronico === this.correoElectronico
+    );
+
+    if (usuarioExistente) {
+      console.log('Error: El correo electrónico ya está registrado.');
+      this.mostrarAlerta('El correo electrónico ya está registrado.');
+      return;
+    }
+
+    // Datos del nuevo usuario a registrar
+    const nuevoUsuario = {
       nombreCompleto: this.nombreCompleto,
       correoElectronico: this.correoElectronico,
       contrasena: this.contrasena,
       tipoRegistro: this.tipoRegistro
     };
 
-    // Obtener los datos actuales de localStorage
-    const storedData = localStorage.getItem('registroUsuario');
-    if (storedData) {
-      const existingUser = JSON.parse(storedData);
+    // Agregar el nuevo usuario a la lista de usuarios
+    listaUsuarios.push(nuevoUsuario);
 
-      if (existingUser.correoElectronico === this.correoElectronico) {
-        console.log('Error: El correo electrónico ya existe.');
-        this.mostrarAlerta('El correo electrónico ya existe.');
-        return;
-      }
-    }
+    // Guardar la lista actualizada en localStorage
+    localStorage.setItem('listaUsuarios', JSON.stringify(listaUsuarios));
 
-    console.log('Datos capturados del formulario:', userData);
+    console.log('Usuario registrado correctamente:', nuevoUsuario);
+    console.log('Lista actualizada de usuarios:', listaUsuarios);
 
-    // Almacenar los datos en localStorage
-    localStorage.setItem('registroUsuario', JSON.stringify(userData));
-    console.log('Datos registrados correctamente en localStorage.');
-
-    // Verificar si los datos fueron almacenados en localStorage correctamente
-    const storedDataAfterRegister = localStorage.getItem('registroUsuario');
-    if (storedDataAfterRegister) {
-      console.log('Datos en localStorage:', JSON.parse(storedDataAfterRegister));
-    } else {
-      console.log('Error: No se encontraron datos en localStorage.');
-    }
-
-    // this.router.navigate(['/tabs/home']);
+    
+    this.router.navigate(['/login']);
   }
-  
-  
+
   togglePasswordVisibility() {
     this.sw = !this.sw; 
   }

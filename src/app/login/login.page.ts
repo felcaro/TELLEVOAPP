@@ -8,8 +8,6 @@ import { Router, NavigationEnd  } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-
-  
   private isDarkMode: boolean = false;
 
   correoElectronico: string = '';
@@ -18,9 +16,7 @@ export class LoginPage {
   sw: boolean = false;
 
   constructor(
-    private navCtrl: NavController,
     private router: Router
-  
   ) 
     {   
       const savedTheme = localStorage.getItem('isDarkMode');
@@ -69,16 +65,21 @@ export class LoginPage {
   
   logIn() {
     console.log('Intentando iniciar sesión...');
-  
-    const storedData = localStorage.getItem('registroUsuario');
+
+    const storedData = localStorage.getItem('listaUsuarios');
     if (storedData) {
-      const existingUser = JSON.parse(storedData);
-  
-      if (existingUser.correoElectronico === this.correoElectronico && existingUser.contrasena === this.contrasena) {
+      const listaUsuarios = JSON.parse(storedData);
+
+      const usuarioEncontrado = listaUsuarios.find(
+        (user: { correoElectronico: string; contrasena: string }) =>
+          user.correoElectronico === this.correoElectronico && user.contrasena === this.contrasena
+      );
+
+      if (usuarioEncontrado) {
         console.log('Inicio de sesión exitoso.');
-        localStorage.setItem('currentUser', JSON.stringify({ correoElectronico: existingUser.correoElectronico, tipoRegistro: existingUser.tipoRegistro }));
-  
-        // Verificar si ya estás en la ruta antes de navegar
+        // Guardar el usuario actual con todos sus datos en localStorage
+        localStorage.setItem('currentUser', JSON.stringify(usuarioEncontrado));
+
         this.router.navigate(['/tabs/home']);
       } else {
         console.log('Error: Credenciales incorrectas.');

@@ -16,19 +16,19 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Fecha</ion-label>
-      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="ride.date" name="date" required></ion-datetime>
+      <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="ride.date" name="date" required></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Hora</ion-label>
-      <ion-datetime displayFormat="HH:mm" [(ngModel)]="ride.time" name="time" required></ion-datetime>
+      <ion-input type="time" [(ngModel)]="ride.time" name="time" required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Asientos disponibles</ion-label>
-      <ion-input type="number" [(ngModel)]="ride.seats" name="seats" required></ion-input>
+      <ion-input type="number" [(ngModel)]="ride.seats" name="seats" required min="1"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Precio por asiento</ion-label>
-      <ion-input type="number" [(ngModel)]="ride.price" name="price" required></ion-input>
+      <ion-input type="number" [(ngModel)]="ride.price" name="price" required min="0" step="0.01"></ion-input>
     </ion-item>
     <ion-button expand="block" type="submit" class="ion-margin-top">Ofrecer Viaje</ion-button>
   </form>

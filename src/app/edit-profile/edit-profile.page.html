@@ -27,54 +27,38 @@
             <img src="assets/default-avatar.png" alt="Foto de Perfil">
           </ion-avatar>
         </ion-item>
-  
-          <ion-input fill="outline" label="{{ usuarioConectado?.nombreCompleto || 'Nombre Completo' }}" labelPlacement="floating" [clearInput]="true"
-            placeholder="Cambiar su nombre completo"></ion-input>
 
-          <ion-input fill="outline" label="{{ usuarioConectado?.correoElectronico || 'Correo Electrónico' }}" labelPlacement="floating" type="email" [clearInput]="true"
-            placeholder="Cambiar su correo electrónico"></ion-input>
+        <ion-input fill="outline" [(ngModel)]="usuarioConectado.nombreCompleto" name="nombreCompleto" label="Nombre Completo" labelPlacement="floating" placeholder="Cambiar su nombre completo"></ion-input>
 
-            <ion-item>
-              <ion-select placeholder="Cambiar su tipo usuario" label="{{ usuarioConectado?.tipoRegistro || 'Cambiar Tipo' }}" label-placement="floating">
-                <ion-select-option value="conductor">Conductor</ion-select-option>
-                <ion-select-option value="pasajero">Pasajero</ion-select-option>
-              </ion-select>
-            </ion-item>
+        <ion-input fill="outline" [(ngModel)]="usuarioConectado.correoElectronico" name="correoElectronico" label="Correo Electrónico" labelPlacement="floating" placeholder="Correo Electrónico" disabled></ion-input>
 
-          <ion-input fill="outline" clearOnEdit="false" label="Cambiar Contraseña" labelPlacement="floating" [clearInput]="true"
-          placeholder="Cambiar su contraseña" [type]="sw ? 'text' : 'password'"></ion-input>
-  
-          <ion-input fill="outline" clearOnEdit="false" label="Ingresar Contraseña Vieja" labelPlacement="floating" [clearInput]="true"
-          placeholder="Ingrese su contraseña" [type]="sw ? 'text' : 'password'"></ion-input>
-  
+        <ion-item>
+          <ion-select [(ngModel)]="usuarioConectado.tipoRegistro" name="tipoRegistro" label="Tipo de Usuario" label-placement="floating">
+            <ion-select-option value="conductor">Conductor</ion-select-option>
+            <ion-select-option value="pasajero">Pasajero</ion-select-option>
+          </ion-select>
+
+        </ion-item>
+        <ion-input id="inputNuevaContrasena" fill="outline" label="Cambiar Contraseña" labelPlacement="floating" [clearInput]="true"
+          placeholder="Ingresar Nueva contraseña" [type]="sw ? 'text' : 'password'"></ion-input>
+
+        <ion-input id="inputContrasenaVieja" fill="outline" label="Confirmar Contraseña Vieja" labelPlacement="floating" [clearInput]="true"
+           placeholder="Ingrese Antigua contraseña" [type]="sw ? 'text' : 'password'"></ion-input>
+
         <ion-item lines="none">
           <ion-checkbox (ionChange)="togglePasswordVisibility()" justify="start" labelPlacement="end">Mostrar Contraseña</ion-checkbox>
         </ion-item>
       </form>
     </section>
 
-    <!-- Toggle para mostrar u ocultar los datos del auto -->
-    <ion-item>
-      <ion-toggle [disabled]="usuarioConectado?.tipoRegistro !== 'conductor'" (ionChange)="toggleDatosAuto($event)" justify="start" labelPlacement="end">Mostrar Datos del Auto</ion-toggle>
-    </ion-item>
+    <section id="auto" *ngIf="usuarioConectado?.tipoRegistro === 'conductor'">
 
-    <!-- Sección del Auto, solo visible si el usuario es conductor y el toggle está activado -->
-    <section id="auto" *ngIf="isConductor && mostrarDatosAuto">
-      <ion-item>
-        <ion-label>Marca y Modelo del Auto</ion-label>
-        <ion-input fill="outline" placeholder="Ingrese marca y modelo"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Color del Auto</ion-label>
-        <ion-input fill="outline" placeholder="Ingrese el color del auto"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Matrícula del Auto</ion-label>
-        <ion-input fill="outline" placeholder="Ingrese la matrícula del auto"></ion-input>
-      </ion-item>
-
+      <ion-input fill="outline" [(ngModel)]="nuevoAuto.marcaModelo" name="marcaModelo" label="Marca y Modelo del Auto" labelPlacement="floating" placeholder="Ingrese marca y modelo"></ion-input>
+      
+      <ion-input fill="outline" [(ngModel)]="nuevoAuto.color" name="colorAuto" label="Color del Auto" labelPlacement="floating" placeholder="Ingrese el color del auto"></ion-input>
+      
+      <ion-input fill="outline" [(ngModel)]="nuevoAuto.matricula" name="matriculaAuto" label="Matrícula del Auto" labelPlacement="floating" placeholder="Ingrese la matrícula del auto"></ion-input>
+      
       <ion-item>
         <ion-label>Foto del Auto</ion-label>
         <ion-avatar>

@@ -12,12 +12,30 @@
     </ion-card-header>
 
     <ion-card-content>
-      <p>Información de usuario...</p>
+      <p *ngIf="isLoggedIn" expand="full">Información de usuario...</p>
+      <ion-card-subtitle>{{ userTipe }}</ion-card-subtitle>
+
+      <div *ngIf="autoInfo; else noCarInfo">
+        <h3>Información del Auto</h3>
+        <p><strong>Marca y Modelo:</strong> {{ autoInfo.marcaModelo }}</p>
+        <p><strong>Color:</strong> {{ autoInfo.color }}</p>
+        <p><strong>Matrícula:</strong> {{ autoInfo.matricula }}</p>
+      </div>
+      <ng-template #noCarInfo>
+        <p>No hay información del auto.</p>
+      </ng-template>
+      
     </ion-card-content>
   </ion-card>
 
   <ion-button expand="full" (click)="onEditProfile()">Editar Perfil</ion-button>
+
+  <!-- Botones separados para iniciar y cerrar sesión -->
+  <ion-button *ngIf="!isLoggedIn" expand="full" color="success" (click)="iniciarSesion()">
+    Iniciar Sesión
+  </ion-button>
   
-  <!-- Botón de Cerrar Sesión -->
-  <ion-button expand="full" color="danger" (click)="cerrarSesion()">Cerrar Sesión</ion-button>
+  <ion-button *ngIf="isLoggedIn" expand="full" color="danger" (click)="cerrarSesion()">
+    Cerrar Sesión
+  </ion-button>
 </ion-content>

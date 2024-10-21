@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-offer-ride',
@@ -10,18 +10,72 @@ export class OfferRidePage {
   ride = {
     origin: '',
     destination: '',
-    date: new Date().toISOString(),
-    time: new Date().toISOString(),
+    date: '',
+    time: '',
     seats: 1,
     price: 0
   };
 
-  constructor(private navCtrl: NavController) {}
+  constructor(
+    private navCtrl: NavController,
+    private alertCtrl: AlertController
+  ) {}
 
-  onSubmit() {
-    console.log('Ride offered:', this.ride);
-    // Aquí iría la lógica para guardar el viaje ofrecido
-    // Por ahora, solo navegamos de vuelta a la página de inicio
-    this.navCtrl.navigateBack('/tabs/home');
+  async onSubmit() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+
+    if (!currentUser) {
+      return this.showAlert('Error', 'Debes iniciar sesión para crear un viaje.');
+    }
+
+    if (currentUser.tipoRegistro !== 'conductor') {
+      return this.showAlert('Acceso Denegado', 'Solo un conductor puede crear un viaje.');
+    }
+
+    const newRide = {
+      ...this.ride,
+      id: this.generateUniqueId(currentUser.correoElectronico),
+      correoUsuario: currentUser.correoElectronico
+    };
+
+    const listaViajes = JSON.parse(localStorage.getItem('listaViajes') || '[]');
+    listaViajes.push(newRide);
+    localStorage.setItem('listaViajes', JSON.stringify(listaViajes));
+
+    const confirmAlert = await this.alertCtrl.create({
+      header: 'Confirmación',
+      message: '¿Deseas confirmar la creación del viaje?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Creación de viaje cancelada.');
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            console.log('Viaje ofrecido:', newRide);
+            this.navCtrl.navigateBack('/tabs/home');
+          }
+        }
+      ]
+    });
+
+    await confirmAlert.present();
+  }
+
+  generateUniqueId(email: string): string {
+    return email + '_' + Date.now(); // ID único basado en el correo y timestamp
+  }
+
+  async showAlert(header: string, message: string) {
+    const alert = await this.alertCtrl.create({
+      header,
+      message,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 }

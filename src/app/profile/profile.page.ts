@@ -1,22 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage {
-  userName: string = '';
-  userEmail: string = '';
+export class ProfilePage implements OnInit {
 
-  constructor(
-    private router: Router
-  ) { 
-    const usuarioConectado = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    this.userName = usuarioConectado.nombreCompleto || 'Invitado';
-    this.userEmail = usuarioConectado.correoElectronico || '';
+  isLoggedIn: boolean = false;
+
+  userName: string = 'Invitado';
+  userEmail: string = '';
+  userTipe: string = 'Inicie Sesion para ver Informacion';
+  autoInfo: any = null;
+
+  constructor(private router: Router) { 
+    this.checkUserSession();
+  }
+
+  ngOnInit() {
+    this.loadCarInfo(); // Cargar la información del auto en ngOnInit
+  }
+
+  checkUserSession() {
+    const usuarioConectado = JSON.parse(localStorage.getItem('currentUser') || 'null');
+
+    if (usuarioConectado) {
+      this.userName = usuarioConectado.nombreCompleto || 'Invitado';
+      this.userEmail = usuarioConectado.correoElectronico || '';
+      this.userTipe = usuarioConectado.tipoRegistro || '';
+      this.isLoggedIn = true; 
+    } else {
+      this.isLoggedIn = false; 
+    }
+  }
+
+  loadCarInfo() {
+    const storedCars: any[] = JSON.parse(localStorage.getItem('listaAutos') || '[]'); 
+    this.autoInfo = storedCars.find((car: any) => car.correo === this.userEmail) || null; 
   }
 
   onEditProfile() {
@@ -24,17 +46,15 @@ export class ProfilePage {
   }
 
   cerrarSesion() {
-    // Obtener los datos del usuario conectado
     const usuarioConectado = JSON.parse(localStorage.getItem('currentUser') || '{}');
-
-    // Mostrar en consola el usuario que está cerrando sesión
     console.log('Usuario que cierra sesión:', usuarioConectado);
-
-    // Limpiar los datos del usuario conectado
+    this.isLoggedIn = false;
     localStorage.removeItem('currentUser');
-    
-    // Redirigir a la pantalla de inicio de sesión
-    this.router.navigate(['/login']); // Ajusta la ruta según tu estructura
+    this.router.navigate(['/login']); 
+  }
+
+  iniciarSesion() {
+    this.router.navigate(['/login']);
   }
 
 }

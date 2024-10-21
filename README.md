@@ -12,12 +12,12 @@ CASO UBER (Pueden dejar uno de estos puntos para la tercera entrega debido a que
 <!-- 10 - Registro (localStorage) -->
 
 
-10 - Recuperar Contraseña (API Myths.cl/api)
+10 - Recuperar Contraseña (API Myths.cl/api)    VER DESPUES 
 
-
+<!-- XDDDDDDDDDDDDDDDD -->
 
 10 - Pagina Perfil (datos personales - viajes creados o solicitados)
-10 - Pagina Crear o Solicitar viaje (depende del perfil de usuario)
+10 - Pagina Crear o Solicitar viaje (depende del perfil de usuario)   CREAR LISTO
 
 
 
