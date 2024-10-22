@@ -3,10 +3,10 @@
     <ion-title>
       TeLlevoAPP
     </ion-title>
-    <ion-icon slot="end" id="icono" (click)="toggleTheme()" name="moon"></ion-icon>
+    <ion-icon slot="end" [name]="isDarkMode ? 'sunny' : 'moon'" (click)="toggleTheme()"></ion-icon>
   </ion-toolbar>
 </ion-header>
-
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
 <ion-content class="ion-padding">
   <h1>Bienvenido a TeLlevoAPP</h1>
   <p>Encuentra o ofrece viajes compartidos de manera fácil y segura.</p>
@@ -26,9 +26,6 @@
   <ion-button expand="block" (click)="findRide()">Buscar Viaje</ion-button>
   <ion-button expand="block" (click)="offerRide()">Ofrecer Viaje</ion-button>
 
-
-  
   <ion-button expand="block" (click)="borrarUsuarios()">Borrar usuarios</ion-button>
-  <ion-button (click)="mostrarListaUsuarios()">Ver Lista de Usuarios</ion-button>
-
+  <ion-button expand="block" (click)="mostrarListaUsuarios()">Ver Lista de Usuarios</ion-button>
 </ion-content>

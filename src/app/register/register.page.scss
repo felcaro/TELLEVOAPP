@@ -1,29 +1,63 @@
-.titulo {
-  font-size: 2rem;
-  font-weight: 600;
+.register-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
 }
 
-ion-input {
-  color: #000000;
-  background: white;
-  border-radius: 8px;
-  border-color: 1px #000000;
-  margin-top: 10px;
-}
-
-p {
-  width: 100px;
-  text-decoration: underline;
-}
-
-.logo-in {
-  display: flex;
-  top: 0;
-  left: 0;
-  margin: 16px;
+.logo-container {
+  text-align: center;
 }
 
 .logo {
-  width: 62px;
-  height: 62px;
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+.app-title {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.register-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.password-group {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.password-toggle ion-icon {
+  font-size: 1.2rem;
+}
+
+.register-button ion-icon,
+.login-button ion-icon {
+  margin-right: 5px;
+}
+
+.register-button,
+.login-button {
+  margin-top: 15px;
+}
+
+.skip-link {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--ion-color-primary);
+  text-align: center;
 }

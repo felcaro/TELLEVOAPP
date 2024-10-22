@@ -1,3 +1,4 @@
+<!-- find-ride.page.html -->
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Buscar Viajes</ion-title>
@@ -12,7 +13,6 @@
 
 <ion-content>
   <ion-list>
-    <!-- Mostrar la lista de viajes desde el array de viajes cargados desde localStorage -->
     <ion-item *ngFor="let viaje of viajes" (click)="abrirModal(viaje)">
       <img [src]="viaje.imagenAuto" class="car-image" alt="Foto del auto">
       <ion-label class="car-details">
@@ -36,7 +36,9 @@
 
       <ion-content>
         <div class="modal-content">
-          <ion-button *ngIf="esCreadorDelViaje()" (click)="confirmarEliminacion()">Eliminar Viaje</ion-button>
+          <ion-button *ngIf="esCreadorDelViaje()" (click)="confirmarEliminacion()">
+            Eliminar Viaje
+          </ion-button>
           <img [src]="viajeSeleccionado.imagenAuto" class="car-image-large" alt="Foto del auto">
           <h2>{{ viajeSeleccionado.nombreChofer }}</h2>
           <h1>{{ viajeSeleccionado.price }} CLP</h1>
@@ -46,8 +48,9 @@
           <p>Hora: {{ viajeSeleccionado.time }}</p>
           <p>Asientos disponibles: {{ viajeSeleccionado.seats }}</p>
 
-          <!-- Mostrar el botón de eliminar solo si el usuario es el creador del viaje -->
-          <ion-button >Aceptar Viaje</ion-button>
+          <ion-button (click)="aceptarViaje(viajeSeleccionado)" expand="full" color="primary">
+            Aceptar Viaje
+          </ion-button>
         </div>
       </ion-content>
     </ng-template>

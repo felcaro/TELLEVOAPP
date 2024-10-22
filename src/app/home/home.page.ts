@@ -1,34 +1,43 @@
-import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { AlertController } from '@ionic/angular';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { NavController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   nextRideDate: Date = new Date();
   nextRideTime: string = '08:00 AM';
   nextRideDriver: string = 'Juan Pérez';
-
-  // Dark mode
-  private isDarkMode: boolean = false;
-  showPassword: boolean = false; 
+  isDarkMode: boolean = false;
 
   constructor(
     private navCtrl: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private renderer: Renderer2
   ) {}
 
-  // DARK MODE NO BORRAR
+  ngOnInit() {
+    const savedTheme = localStorage.getItem('isDarkMode');
+    if (savedTheme) {
+      this.isDarkMode = JSON.parse(savedTheme);
+      this.applyTheme();
+    }
+  }
+
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;
     localStorage.setItem('isDarkMode', JSON.stringify(this.isDarkMode));
     this.applyTheme();
   }
+
   private applyTheme() {
-    document.body.classList.toggle('dark', this.isDarkMode);
+    if (this.isDarkMode) {
+      this.renderer.addClass(document.body, 'dark-theme');
+    } else {
+      this.renderer.removeClass(document.body, 'dark-theme');
+    }
   }
 
   async borrarUsuarios() {
@@ -47,7 +56,7 @@ export class HomePage {
         {
           text: 'Eliminar',
           handler: () => {
-            localStorage.removeItem('usuarios');
+            localStorage.removeItem('listaUsuarios');
             console.log('Todos los usuarios han sido eliminados.');
           }
         }
@@ -57,10 +66,8 @@ export class HomePage {
     await alert.present();
   }
 
-
   mostrarListaUsuarios() {
     const storedData = JSON.parse(localStorage.getItem('listaUsuarios') || '[]');
-    
     console.log('Lista de Usuarios:', storedData);
   }
 

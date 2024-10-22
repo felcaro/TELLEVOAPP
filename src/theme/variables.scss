@@ -1,109 +1,101 @@
+// Importación de la fuente Noto Sans JP
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
 
-:root {
+// Variables SCSS para el tema japonés
+$font-family-base: 'Noto Sans JP', sans-serif;
 
-  --ion-color-primary: #6e7f80;
-  --ion-color-primary-rgb: 110, 127, 128;
-  --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #617071;
-  --ion-color-primary-tint: #7d8c8d;
+// Tamaños de fuente
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-large: 18px;
 
-  --ion-color-secondary: #a7adba;
-  --ion-color-secondary-rgb: 167, 173, 186;
-  --ion-color-secondary-contrast: #000000;
-  --ion-color-secondary-contrast-rgb: 0, 0, 0;
-  --ion-color-secondary-shade: #939aa4;
-  --ion-color-secondary-tint: #b0b5c1;
+// Espaciado
+$spacing-small: 8px;
+$spacing-medium: 16px;
+$spacing-large: 24px;
 
-  --ion-background-color: #f0f3f4;
-  --ion-background-color-rgb: 240, 243, 244;
+// Bordes redondeados
+$border-radius-small: 4px;
+$border-radius-medium: 8px;
+$border-radius-large: 12px;
 
-  --ion-text-color: #2c3e50;
-  --ion-text-color-rgb: 44, 62, 80;
+// Sombras
+$box-shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+$box-shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+$box-shadow-heavy: 0 8px 16px rgba(0, 0, 0, 0.2);
 
-  --ion-color-step-50: #e6e9ea;
-  --ion-color-step-100: #dce0e1;
-  --ion-color-step-150: #d2d6d7;
-  --ion-color-step-200: #c8cccd;
-  --ion-color-step-250: #bec2c3;
-  --ion-color-step-300: #b4b9ba;
-  --ion-color-step-350: #aaafb0;
-  --ion-color-step-400: #a0a5a6;
-  --ion-color-step-450: #969b9c;
-  --ion-color-step-500: #8c9192;
-  --ion-color-step-550: #828788;
-  --ion-color-step-600: #787d7e;
-  --ion-color-step-650: #6e7374;
-  --ion-color-step-700: #64696a;
-  --ion-color-step-750: #5a5f60;
-  --ion-color-step-800: #505556;
-  --ion-color-step-850: #464b4c;
-  --ion-color-step-900: #3c4142;
-  --ion-color-step-950: #323738;
+// Transiciones
+$transition-speed: 0.3s;
+$transition-easing: ease;
+
+// Opacidades
+$opacity-light: 0.7;
+$opacity-medium: 0.5;
+$opacity-heavy: 0.3;
+
+// Breakpoints
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+
+// Mixins útiles
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Tema oscuro (soledad profunda) */
-    --ion-color-primary: #4a6670;
-    --ion-color-primary-rgb: 74, 102, 112;
-    --ion-color-primary-contrast: #ffffff;
-    --ion-color-primary-contrast-rgb: 255, 255, 255;
-    --ion-color-primary-shade: #415a63;
-    --ion-color-primary-tint: #5c757e;
-
-    --ion-color-secondary: #718792;
-    --ion-color-secondary-rgb: 113, 135, 146;
-    --ion-color-secondary-contrast: #ffffff;
-    --ion-color-secondary-contrast-rgb: 255, 255, 255;
-    --ion-color-secondary-shade: #637780;
-    --ion-color-secondary-tint: #7f939d;
-
-    --ion-background-color: #1c2833;
-    --ion-background-color-rgb: 28, 40, 51;
-
-    --ion-text-color: #ecf0f1;
-    --ion-text-color-rgb: 236, 240, 241;
-
-    --ion-color-step-50: #26323d;
-    --ion-color-step-100: #303c47;
-    --ion-color-step-150: #3a4651;
-    --ion-color-step-200: #44505b;
-    --ion-color-step-250: #4e5a65;
-    --ion-color-step-300: #58646f;
-    --ion-color-step-350: #626e79;
-    --ion-color-step-400: #6c7883;
-    --ion-color-step-450: #76828d;
-    --ion-color-step-500: #808c97;
-    --ion-color-step-550: #8a96a1;
-    --ion-color-step-600: #94a0ab;
-    --ion-color-step-650: #9eaab5;
-    --ion-color-step-700: #a8b4bf;
-    --ion-color-step-750: #b2bec9;
-    --ion-color-step-800: #bcc8d3;
-    --ion-color-step-850: #c6d2dd;
-    --ion-color-step-900: #d0dce7;
-    --ion-color-step-950: #dae6f1;
+@mixin hover-effect {
+  transition: all $transition-speed $transition-easing;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $box-shadow-medium;
   }
 }
 
-
-.mild-solitude {
-  --ion-background-color: #e8ecf0;
-  --ion-text-color: #34495e;
+// Estilos para elementos comunes de la UI
+ion-content {
+  --background: var(--ion-background-color);
+  font-family: $font-family-base;
 }
 
-.moderate-solitude {
-  --ion-background-color: #d0d9e0;
-  --ion-text-color: #2c3e50;
+ion-card {
+  border-radius: $border-radius-medium;
+  box-shadow: $box-shadow-light;
+  @include hover-effect;
 }
 
-.deep-solitude {
-  --ion-background-color: #34495e;
-  --ion-text-color: #ecf0f1;
+ion-button {
+  --border-radius: #{$border-radius-small};
+  font-weight: 500;
+  text-transform: uppercase;
+  @include hover-effect;
 }
 
-.extreme-solitude {
-  --ion-background-color: #1c2833;
-  --ion-text-color: #bdc3c7;
+// Clases de utilidad
+.text-center {
+  text-align: center;
+}
+
+.margin-top {
+  margin-top: $spacing-medium;
+}
+
+.padding {
+  padding: $spacing-medium;
+}
+
+// Animación para elementos que aparecen
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp $transition-speed $transition-easing;
 }

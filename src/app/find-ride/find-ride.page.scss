@@ -1,5 +1,54 @@
-ion-modal {
-    --height: 100%;
-    --width: 100%;
+/* find-ride.page.scss */
+.car-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 16px;
+}
 
+.car-image-large {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.car-details {
+  h2 {
+    font-weight: bold;
+    margin-bottom: 4px;
   }
+
+  .departure-location {
+    color: var(--ion-color-medium);
+  }
+}
+
+.seats-available {
+  font-size: 14px;
+  color: var(--ion-color-primary);
+}
+
+.modal-content {
+  padding: 16px;
+
+  h1 {
+    color: var(--ion-color-primary);
+    font-size: 24px;
+    font-weight: bold;
+    margin: 16px 0;
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin: 8px 0;
+    color: var(--ion-color-medium);
+  }
+}

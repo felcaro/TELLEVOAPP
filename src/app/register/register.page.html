@@ -1,42 +1,92 @@
-<ion-content [fullscreen]="true">
-  <div id="contenedor">
-    <div class="logo-in">
+<ion-content fullscreen="true">
+  <div id="contenedor" class="register-container">
+    <div class="logo-in logo-container">
       <img src="assets/autologo.svg" class="logo">
-      <h1>TeLlevoApp</h1>
+      <h1 class="app-title">TeLlevoApp</h1>
     </div>
 
-    <div class="titulo">
+    <div class="titulo register-title">
       Registro
     </div>
 
-    <form>
-      <ion-input [(ngModel)]="nombreCompleto" name="nombreCompleto" fill="outline" label="Nombre Completo" labelPlacement="floating" [clearInput]="true"
-        placeholder="Ingrese su nombre completo"></ion-input>
-    
-      <ion-input [(ngModel)]="correoElectronico" name="correoElectronico" fill="outline" label="Correo Electrónico" labelPlacement="floating" [clearInput]="true"
-        placeholder="Ingrese su correo electrónico"></ion-input>
-    
-      <ion-input [(ngModel)]="contrasena" name="contrasena" fill="outline" clearOnEdit="false" label="Contraseña" labelPlacement="floating" [clearInput]="true"
-        placeholder="Ingrese su contraseña" [type]="sw ? 'text' : 'password'">
-      </ion-input>
-    
-      <ion-input [(ngModel)]="confirmarContrasena" name="confirmarContrasena" fill="outline" clearOnEdit="false" label="Confirmar Contraseña" labelPlacement="floating" [clearInput]="true"
-        placeholder="Confirme su contraseña" [type]="sw ? 'text' : 'password'">
-      </ion-input>
-    
-      <ion-checkbox (ionChange)="togglePasswordVisibility()" justify="start" labelPlacement="end">Mostrar Contraseña</ion-checkbox>
-    
-      <ion-item>
-        <ion-select [(ngModel)]="tipoRegistro" name="tipoRegistro" label="Registrarse como" label-placement="floating">
-          <ion-select-option value="conductor">Conductor</ion-select-option>
-          <ion-select-option value="pasajero">Pasajero</ion-select-option>
-        </ion-select>
-      </ion-item>
-    
-      <ion-button color="primary" (click)="register()">Registrarse</ion-button>
+    <form class="register-form">
+      <div class="form-group">
+        <ion-input 
+          [(ngModel)]="nombreCompleto" 
+          name="nombreCompleto" 
+          fill="outline" 
+          label="Nombre Completo" 
+          labelPlacement="floating" 
+          [clearInput]="true" 
+          placeholder="Ingrese su nombre completo">
+        </ion-input>
+      </div>
+
+      <div class="form-group">
+        <ion-input 
+          [(ngModel)]="correoElectronico" 
+          name="correoElectronico" 
+          fill="outline" 
+          label="Correo Electrónico" 
+          labelPlacement="floating" 
+          [clearInput]="true" 
+          placeholder="Ingrese su correo electrónico">
+        </ion-input>
+      </div>
+
+      <div class="form-group password-group">
+        <ion-input 
+          [(ngModel)]="contrasena" 
+          name="contrasena" 
+          fill="outline" 
+          clearOnEdit="false" 
+          label="Contraseña" 
+          labelPlacement="floating" 
+          [clearInput]="true" 
+          placeholder="Ingrese su contraseña" 
+          [type]="sw ? 'text' : 'password'">
+        </ion-input>
+        <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+          <ion-icon [name]="sw ? 'eye-off' : 'eye'"></ion-icon>
+        </button>
+      </div>
+
+      <div class="form-group">
+        <ion-input 
+          [(ngModel)]="confirmarContrasena" 
+          name="confirmarContrasena" 
+          fill="outline" 
+          clearOnEdit="false" 
+          label="Confirmar Contraseña" 
+          labelPlacement="floating" 
+          [clearInput]="true" 
+          placeholder="Confirme su contraseña" 
+          [type]="sw ? 'text' : 'password'">
+        </ion-input>
+      </div>
+
+      <div class="form-group">
+        <ion-item>
+          <ion-select 
+            [(ngModel)]="tipoRegistro" 
+            name="tipoRegistro" 
+            label="Registrarse como" 
+            label-placement="floating">
+            <ion-select-option value="conductor">Conductor</ion-select-option>
+            <ion-select-option value="pasajero">Pasajero</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+      <ion-button expand="block" color="primary" (click)="register()" class="register-button">
+        <ion-icon slot="start" name="person-add"></ion-icon>Registrarse
+      </ion-button>
     </form>
 
-    <ion-button color="primary" (click)="gologIn()">¿Ya tienes cuenta?</ion-button>
-    <p (click)="goHome()">No por ahora</p>
+    <ion-button expand="block" fill="outline" color="primary" (click)="gologIn()" class="login-button">
+      <ion-icon slot="start" name="log-in"></ion-icon>¿Ya tienes cuenta?
+    </ion-button>
+
+    <p class="skip-link" (click)="goHome()">No por ahora</p>
   </div>
 </ion-content>
