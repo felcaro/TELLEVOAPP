@@ -1,8 +1,10 @@
+
 #contenedor {
     display: flex;
     flex-direction: column;
     padding: 16px;
     gap: 20px; 
+  
   }
   
   .titulo {
@@ -14,7 +16,7 @@
   
   // Sección del usuario
   #userdata {
-    background-color: #3f3f3f; // Fondo blanco para la sección
+    background-color: var(--ion-card-background, #ffffff);// Fondo blanco para la sección
     border-radius: 8px; // Bordes redondeados
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Sombra para dar profundidad
     padding: 20px; // Espaciado interno
@@ -24,7 +26,7 @@
   
   // Sección del auto
   #auto {
-    background-color: #686868; // Fondo blanco para la sección
+    background-color: var(--ion-card-background, #ffffff); // Fondo blanco para la sección
     border-radius: 8px; // Bordes redondeados
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Sombra para dar profundidad
     padding: 20px; // Espaciado interno
@@ -54,3 +56,5 @@
     width: 100%;
   }
 
+
+  

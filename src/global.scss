@@ -345,4 +345,9 @@ ion-input, ion-select {
   --ion-toolbar-background: #2A2A2A;
   --ion-tab-bar-background: #2A2A2A;
   --ion-card-background: #2A2A2A;
+
+  ion-card-title {
+    color: var(--ion-text-color);
+  }
+
 }
