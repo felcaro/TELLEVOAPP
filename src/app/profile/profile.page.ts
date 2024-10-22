@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,17 +10,35 @@ export class ProfilePage implements OnInit {
 
   isLoggedIn: boolean = false;
 
+  isDarkMode: boolean = false;
+
   userName: string = 'Invitado';
   userEmail: string = '';
   userTipe: string = 'Inicie Sesion para ver Informacion';
   autoInfo: any = null;
 
-  constructor(private router: Router) { 
+  constructor(
+    private router: Router,
+    private renderer: Renderer2
+  ) { 
     this.checkUserSession();
   }
 
   ngOnInit() {
-    this.loadCarInfo(); // Cargar la información del auto en ngOnInit
+    this.loadCarInfo();
+    const savedTheme = localStorage.getItem('isDarkMode');
+    if (savedTheme) {
+      this.isDarkMode = JSON.parse(savedTheme);
+      this.applyTheme();
+    }
+  }
+
+  private applyTheme() {
+    if (this.isDarkMode) {
+      this.renderer.addClass(document.body, 'dark-theme');
+    } else {
+      this.renderer.removeClass(document.body, 'dark-theme');
+    }
   }
 
   checkUserSession() {

@@ -1,5 +1,5 @@
 // find-ride.page.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 
@@ -14,16 +14,33 @@ export class FindRidePage implements OnInit {
   mostrarModal = false;
   viajeSeleccionado: any;
 
+  isDarkMode: boolean = false;
+
   constructor(
     private router: Router,
     private modalController: ModalController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
     this.cargarViajes();
     this.cargarUsuarios();
     this.asignarNombresChoferes();
+
+    const savedTheme = localStorage.getItem('isDarkMode');
+    if (savedTheme) {
+      this.isDarkMode = JSON.parse(savedTheme);
+      this.applyTheme();
+    }
+  }
+
+  private applyTheme() {
+    if (this.isDarkMode) {
+      this.renderer.addClass(document.body, 'dark-theme');
+    } else {
+      this.renderer.removeClass(document.body, 'dark-theme');
+    }
   }
 
   cargarViajes() {

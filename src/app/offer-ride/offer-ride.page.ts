@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 
 @Component({
@@ -6,7 +6,9 @@ import { NavController, AlertController } from '@ionic/angular';
   templateUrl: './offer-ride.page.html',
   styleUrls: ['./offer-ride.page.scss'],
 })
-export class OfferRidePage {
+export class OfferRidePage implements OnInit{
+
+  isDarkMode: boolean = false;
   ride = {
     origin: '',
     destination: '',
@@ -18,8 +20,25 @@ export class OfferRidePage {
 
   constructor(
     private navCtrl: NavController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private renderer: Renderer2
   ) {}
+
+  ngOnInit() {
+    const savedTheme = localStorage.getItem('isDarkMode');
+    if (savedTheme) {
+      this.isDarkMode = JSON.parse(savedTheme);
+      this.applyTheme();
+    }
+  }
+
+  private applyTheme() {
+    if (this.isDarkMode) {
+      this.renderer.addClass(document.body, 'dark-theme');
+    } else {
+      this.renderer.removeClass(document.body, 'dark-theme');
+    }
+  }
 
   async onSubmit() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');

@@ -6,11 +6,20 @@
 - perfil pasajero : solo datos de usuario(los tabs solo el solicitar viaje) -->
 
 
-
+-- PIPE
+- icono usuario en el editar perfil y en el profile
+- poner foto de mapa o lo que sea en el viaje
 
 
 -- negro
 - editar perfil para que solo muestre auto cuando el usuario es conductor
+- arreglar login(notificaciones)
+- arreglar contraseñas del editar perfil y si hay sesion o no
+- arreglar el confirmar del editar perfil para que valide los datos del auto 
+- complementar api mapa con la imagen del viaje
+- verificar el eliminar del viaje
+
+- hacer que los viajes aceptados por los usuarios pasajeros se pongan en el home, copiar y pegar el modal del buscar viaje, completo
 
 -- ITAMIS
 - Diseño semi profesional
