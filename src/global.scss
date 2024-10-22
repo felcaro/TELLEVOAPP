@@ -350,4 +350,12 @@ ion-input, ion-select {
     color: var(--ion-text-color);
   }
 
+  ion-input, ion-textarea, ion-select, ion-datetime{
+    --background-color: #2A2A2A;
+    --color: #ffffff;
+    --placeholder-color: #888888;
+    --border-color: #444444;
+    --highlight-color-focused: #FF6B6B;
+  }
+
 }
