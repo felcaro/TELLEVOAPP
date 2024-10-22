@@ -7,8 +7,8 @@
 
 
 -- PIPE
-- icono usuario en el editar perfil y en el profile
-- poner foto de mapa o lo que sea en el viaje
+- icono usuario en el editar perfil y en el profile // listo supongo :o
+- poner foto de mapa o lo que sea en el viaje // creo que esta listo si no mas tarde lo veo
 
 
 -- negro
@@ -18,6 +18,10 @@
 - arreglar el confirmar del editar perfil para que valide los datos del auto 
 - complementar api mapa con la imagen del viaje
 - verificar el eliminar del viaje
+
+
+- puedes areglar la wea del edit-profile pls no caceh lo que hiciste para que quedara el modo color noche Att:pipex 
+
 
 - hacer que los viajes aceptados por los usuarios pasajeros se pongan en el home, copiar y pegar el modal del buscar viaje, completo
 

@@ -9,6 +9,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class EditProfilePage implements OnInit {
 
+
+
+
   sw: boolean = false;
 
   usuarioConectado: any;

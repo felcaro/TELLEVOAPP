@@ -359,4 +359,17 @@ ion-input, ion-select {
     --highlight-color-focused: #FF6B6B;
   }
 
+  ion-item {
+    --color: var(--ion-text-color); /* Texto blanco para ion-item */
+  }
+
+  .alert-radio-label.sc-ion-alert-md {
+    color: #ffffff;
+}
+  ion-select-option {
+   color: #ffffff; 
+  }
+  ion-item {
+    color: #ffffff;
+  }
 }
