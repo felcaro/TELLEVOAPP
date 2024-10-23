@@ -18,7 +18,7 @@
 <!-- - arreglar el confirmar del editar perfil para que valide los datos del auto  -->
 <!-- - complementar api mapa con la imagen del viaje -->
 <!-- - verificar el eliminar del viaje -->
-- hacer que los viajes aceptados por los usuarios pasajeros se pongan en el home, copiar y pegar el modal del buscar viaje completo
+<!-- - hacer que los viajes aceptados por los usuarios pasajeros se pongan en el home, copiar y pegar el modal del buscar viaje completo -->
 
 -- ITAMIS
 - Diseño semi profesional
@@ -33,6 +33,6 @@ CASO UBER (Pueden dejar uno de estos puntos para la tercera entrega debido a que
 <!-- 10 - Registro (localStorage) -->
 10 - Recuperar Contraseña (API Myths.cl/api)    VER DESPUES 
 <!-- 10 - Pagina Perfil (datos personales - viajes creados o solicitados) -->
-10 - Pagina Crear o Solicitar viaje (depende del perfil de usuario)   CREAR LISTO
+<!-- 10 - Pagina Crear o Solicitar viaje (depende del perfil de usuario)   CREAR LISTO -->
 <!-- 10 - Diseño semi profesional -->
 10 - Animaciones (3)

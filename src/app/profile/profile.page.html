@@ -1,6 +1,9 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Perfil</ion-title>
+  <ion-toolbar class="custom-toolbar">
+    <ion-title>
+      TeLlevoAPP
+    </ion-title>
+    <ion-icon slot="end" [name]="isDarkMode ? 'sunny' : 'moon'" (click)="toggleTheme()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 

@@ -35,6 +35,12 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('isDarkMode', JSON.stringify(this.isDarkMode));
+    this.applyTheme();
+  }
+
   private applyTheme() {
     if (this.isDarkMode) {
       this.renderer.addClass(document.body, 'dark-theme');

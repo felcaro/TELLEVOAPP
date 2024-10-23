@@ -8,6 +8,10 @@ ion-content {
     padding-bottom: 20px;
 }
 
+.custom-toolbar {
+    --background: #C73E36; 
+}  
+
 /* Card styling */
 ion-card {
     width: 95%;
@@ -15,6 +19,17 @@ ion-card {
     margin-top: 20px;
 }
 
+ion-icon[name="sunny"],
+ion-icon[name="moon"] {
+  font-size: 1.5rem;
+  padding-right: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  
+  &:hover {
+    transform: rotate(45deg);
+  }
+}
 /* Container for button groups */
 .buttons-container {
     display: flex;
