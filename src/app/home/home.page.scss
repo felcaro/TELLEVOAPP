@@ -8,6 +8,9 @@ h1 {
   font-weight: bold;
   margin-bottom: 10px;
 }
+.custom-toolbar {
+  --background: #C73E36; 
+}
 
 p {
   font-size: 16px;
@@ -20,4 +23,49 @@ ion-card {
 
 ion-button {
   margin-bottom: 10px;
+}
+// animacion del sol y la luna
+ion-icon[name="sunny"],
+ion-icon[name="moon"] {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  
+  &:hover {
+    transform: rotate(45deg);
+  }
+}
+
+
+// nt nose me woa a matar o cortar un coco
+
+/* Squared button styling */
+ion-button {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px 0;
+  padding: 0 10px;
+  --border-radius: 10px !important;  /* Hace los botones más cuadrados */
+  height: 10px;  /* Altura fija para los botones */
+}
+
+/* Estilo específico para el botón dentro del ion-button */
+ion-button::part(native) {
+  border-radius: 50px !important;
+}
+
+/* Para asegurar que el contenido del botón también sea cuadrado */
+ion-button .button-native {
+  border-radius: 50px !important;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  ion-card {
+      max-width: 600px;
+  }
+  
+  ion-button {
+      max-width: 400px;
+  }
 }

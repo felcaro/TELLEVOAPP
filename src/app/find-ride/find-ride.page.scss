@@ -1,7 +1,7 @@
 /* find-ride.page.scss */
 .car-image {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
   border-radius: 8px;
   margin-right: 16px;
@@ -33,7 +33,6 @@
 
 .modal-content {
   padding: 16px;
-
   h1 {
     color: var(--ion-color-primary);
     font-size: 24px;
@@ -50,5 +49,38 @@
   p {
     margin: 8px 0;
     color: var(--ion-color-medium);
+  }
+}
+
+
+
+/* Squared button styling */
+ion-button {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px 0;
+  padding: 0 10px;
+  --border-radius: 10px !important;  /* Hace los botones más cuadrados */
+  height: 10px;  /* Altura fija para los botones */
+}
+
+/* Estilo específico para el botón dentro del ion-button */
+ion-button::part(native) {
+  border-radius: 50px !important;
+}
+
+/* Para asegurar que el contenido del botón también sea cuadrado */
+ion-button .button-native {
+  border-radius: 50px !important;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  ion-card {
+      max-width: 600px;
+  }
+  
+  ion-button {
+      max-width: 400px;
   }
 }

@@ -7,10 +7,9 @@ import { NavController, AlertController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  nextRideDate: Date = new Date();
-  nextRideTime: string = '08:00 AM';
-  nextRideDriver: string = 'Juan Pérez';
+
   isDarkMode: boolean = false;
+  acceptedRides: any[] = [];
 
   constructor(
     private navCtrl: NavController,
@@ -24,6 +23,7 @@ export class HomePage implements OnInit {
       this.isDarkMode = JSON.parse(savedTheme);
       this.applyTheme();
     }
+    this.loadAcceptedRides();
   }
 
   toggleTheme() {
@@ -39,6 +39,16 @@ export class HomePage implements OnInit {
       this.renderer.removeClass(document.body, 'dark-theme');
     }
   }
+
+  loadAcceptedRides() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    if (currentUser) {
+      const listaViajes = JSON.parse(localStorage.getItem('listaViajes') || '[]');
+      // Filtra los viajes aceptados por el usuario actual
+      this.acceptedRides = listaViajes.filter((viaje: any) => viaje.correoUsuario === currentUser.correoElectronico && viaje.aceptado);
+    }
+  }
+
 
   async borrarUsuarios() {
     const alert = await this.alertController.create({

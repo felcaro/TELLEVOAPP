@@ -4,14 +4,28 @@
   padding: 20px;
 }
 
-.logo-container {
-  text-align: center;
+.login-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
 }
 
-.logo {
-  width: 100px;
+
+.logo-container {
+  display: flex;
+  align-items: center;
   margin-bottom: 20px;
 }
+
+.theme-toggle-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease; 
+}
+// nose que paso nt
+.theme-toggle-icon:hover{
+  transform: rotate(45deg);
+} 
 
 .app-title {
   font-size: 2rem;
@@ -19,7 +33,7 @@
 }
 
 .register-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 20px;
 }
 
@@ -61,3 +75,4 @@
   color: var(--ion-color-primary);
   text-align: center;
 }
+

@@ -1,13 +1,15 @@
 <ion-content fullscreen="true">
   <div id="contenedor" class="register-container">
     <div class="logo-in logo-container">
-      <img src="assets/autologo.svg" class="logo">
+      <ion-icon src="/assets/autologo.svg" style="width: 4rem; height: 4rem;" class="logo"></ion-icon>
       <h1 class="app-title">TeLlevoApp</h1>
+      <ion-icon [name]="isDarkMode ? 'sunny' : 'moon'" (click)="toggleTheme()" class="theme-toggle-icon"></ion-icon>
     </div>
 
     <div class="titulo register-title">
       Registro
     </div>
+    
 
     <form class="register-form">
       <div class="form-group">

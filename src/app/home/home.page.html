@@ -1,31 +1,31 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="custom-toolbar">
     <ion-title>
       TeLlevoAPP
     </ion-title>
     <ion-icon slot="end" [name]="isDarkMode ? 'sunny' : 'moon'" (click)="toggleTheme()"></ion-icon>
   </ion-toolbar>
 </ion-header>
+
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
 <ion-content class="ion-padding">
   <h1>Bienvenido a TeLlevoAPP</h1>
   <p>Encuentra o ofrece viajes compartidos de manera fácil y segura.</p>
 
-  <ion-card>
+  <ion-card *ngFor="let viaje of acceptedRides">
     <ion-card-header>
-      <ion-card-subtitle>Próximo viaje</ion-card-subtitle>
-      <ion-card-title>Viaje a la Universidad</ion-card-title>
+      <ion-card-subtitle>Viaje Aceptado</ion-card-subtitle>
+      <ion-card-title>{{ viaje.titulo || "Inicia Sesion o Acepta un viaje" }}</ion-card-title> <!-- Asegúrate de tener un campo 'titulo' en los viajes -->
     </ion-card-header>
     <ion-card-content>
-      <p>Fecha: {{nextRideDate | date:'dd/MM/yyyy'}}</p>
-      <p>Hora: {{nextRideTime}}</p>
-      <p>Conductor: {{nextRideDriver}}</p>
+      <p>Fecha: {{ viaje.fecha | date:'dd/MM/yyyy' }}</p>
+      <p>Hora: {{ viaje.hora }}</p>
+      <p>Conductor: {{ viaje.conductor }}</p>
     </ion-card-content>
   </ion-card>
 
   <ion-button expand="block" (click)="findRide()">Buscar Viaje</ion-button>
   <ion-button expand="block" (click)="offerRide()">Ofrecer Viaje</ion-button>
-
   <ion-button expand="block" (click)="borrarUsuarios()">Borrar usuarios</ion-button>
   <ion-button expand="block" (click)="mostrarListaUsuarios()">Ver Lista de Usuarios</ion-button>
 </ion-content>

@@ -1,6 +1,11 @@
-
-
 <ion-content [fullscreen]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/profile"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Volver</ion-title>
+  </ion-toolbar>
+
   <div id="contenedor"></div>
 
   <div id="info-viaje">
@@ -23,13 +28,6 @@
       {{ item.description }}
     </div>
   </div>
-
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/profile"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Volver</ion-title>
-  </ion-toolbar>
   
 
 <ion-header collapse="condense">

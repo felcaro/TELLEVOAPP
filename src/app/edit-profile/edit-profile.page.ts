@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
@@ -9,8 +9,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class EditProfilePage implements OnInit {
 
-
-
+  isDarkMode: boolean = false;
 
   sw: boolean = false;
 
@@ -25,7 +24,8 @@ export class EditProfilePage implements OnInit {
 
   constructor(
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private renderer: Renderer2
 
   ) {
 
@@ -38,6 +38,20 @@ export class EditProfilePage implements OnInit {
     this.cargarDatosUsuario();
     this.cargarDatosAuto();
     console.log('Datos del usuario en ngOnInit:', this.usuarioConectado);
+
+    const savedTheme = localStorage.getItem('isDarkMode');
+    if (savedTheme) {
+      this.isDarkMode = JSON.parse(savedTheme);
+      this.applyTheme();
+    }
+  }
+
+  private applyTheme() {
+    if (this.isDarkMode) {
+      this.renderer.addClass(document.body, 'dark-theme');
+    } else {
+      this.renderer.removeClass(document.body, 'dark-theme');
+    }
   }
 
   private cargarDatosUsuario() {
@@ -47,7 +61,7 @@ export class EditProfilePage implements OnInit {
     // Verifica que storedData sea un array
     if (!Array.isArray(storedData)) {
       console.error('La lista de usuarios no es un array. Inicializando como array vacío.');
-      return; // O puedes inicializar storedData como un array vacío
+      return;
     }
   
     // Verifica si el correo electrónico coincide y carga los datos
@@ -79,23 +93,35 @@ export class EditProfilePage implements OnInit {
   }
 
   private guardarCambios() {
-    // Actualizar los datos del usuario
-    const storedData = JSON.parse(localStorage.getItem('listaUsuarios') || '[]');
-    const currentUserEmail = this.usuarioConectado.correoElectronico;
-
-    const index = storedData.findIndex((user: any) => user.correoElectronico === currentUserEmail);
-    if (index !== -1) {
-      storedData[index].nombreCompleto = this.usuarioConectado.nombreCompleto;
-      storedData[index].tipoRegistro = this.usuarioConectado.tipoRegistro;
-      localStorage.setItem('listaUsuarios', JSON.stringify(storedData));
+    if (this.validarCampos()) {
+      // Actualizar los datos del usuario
+      const storedData = JSON.parse(localStorage.getItem('listaUsuarios') || '[]');
+      const currentUserEmail = this.usuarioConectado.correoElectronico;
+  
+      const index = storedData.findIndex((user: any) => user.correoElectronico === currentUserEmail);
+      if (index !== -1) {
+        storedData[index].nombreCompleto = this.usuarioConectado.nombreCompleto;
+        storedData[index].tipoRegistro = this.usuarioConectado.tipoRegistro;
+  
+        // Actualizar la contraseña con la nueva
+        const nuevaContrasenaInput = document.getElementById('inputNuevaContrasena') as HTMLInputElement;
+        if (nuevaContrasenaInput.value) {
+          storedData[index].contrasena = nuevaContrasenaInput.value;
+          this.usuarioConectado.contrasena = nuevaContrasenaInput.value;
+        }
+  
+        localStorage.setItem('listaUsuarios', JSON.stringify(storedData));
+      }
+  
+      // Guardar los datos del auto en la lista de autos (si es conductor)
+      this.guardarAuto();
+      
+      // Actualizar currentUser en localStorage
+      localStorage.setItem('currentUser', JSON.stringify(this.usuarioConectado));
+      this.goprofile();
+    } else {
+      console.log('No se pudieron guardar los cambios. Hay campos incompletos o errores.');
     }
-
-    // Guardar los datos del auto en la lista de autos
-    this.guardarAuto();
-    
-    // Actualizar currentUser en localStorage
-    localStorage.setItem('currentUser', JSON.stringify(this.usuarioConectado));
-    this.goprofile();
   }
 
 
@@ -119,9 +145,18 @@ export class EditProfilePage implements OnInit {
     localStorage.setItem('listaAutos', JSON.stringify(listaAutos));
     console.log('Auto guardado:', autoData);
   }
-  
 
   async confirmarCambios() {
+    if (!this.validarCampos()) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Por favor, completa todos los campos obligatorios antes de confirmar.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
+  
     const alert = await this.alertController.create({
       header: 'Confirmar Cambios',
       message: '¿Estás seguro de que deseas guardar los cambios en el perfil?',
@@ -142,11 +177,35 @@ export class EditProfilePage implements OnInit {
         }
       ]
     });
-
+  
     await alert.present();
   }
 
 
+  private validarCampos(): boolean {
+    if (!this.usuarioConectado.nombreCompleto || !this.usuarioConectado.correoElectronico) {
+      return false;
+    }
+  
+    const nuevaContrasenaInput = document.getElementById('inputNuevaContrasena') as HTMLInputElement;
+    const contrasenaViejaInput = document.getElementById('inputContrasenaVieja') as HTMLInputElement;
+  
+    if (!nuevaContrasenaInput.value || !contrasenaViejaInput.value) {
+      return false;
+    }
+  
+    if (contrasenaViejaInput.value !== this.usuarioConectado.contrasena) {
+      return false;
+    }
+  
+    if (this.usuarioConectado.tipoRegistro === 'conductor') {
+      if (!this.nuevoAuto.marcaModelo || !this.nuevoAuto.color || !this.nuevoAuto.matricula) {
+        return false;
+      }
+    }
+  
+    return true;
+  }
 
 
   togglePasswordVisibility() {

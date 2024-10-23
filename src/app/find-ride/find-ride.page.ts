@@ -13,6 +13,7 @@ export class FindRidePage implements OnInit {
   listaUsuarios: any[] = [];
   mostrarModal = false;
   viajeSeleccionado: any;
+  currentUser: any;
 
   isDarkMode: boolean = false;
 
@@ -42,6 +43,18 @@ export class FindRidePage implements OnInit {
       this.renderer.removeClass(document.body, 'dark-theme');
     }
   }
+
+  irADetalleViaje(id: number) {
+    const viajeSeleccionado = this.viajes.find(v => v.id === id);
+    if (viajeSeleccionado) {
+      // Guarda los datos del viaje en localStorage
+      localStorage.setItem('viajeSeleccionado', JSON.stringify(viajeSeleccionado));
+  
+      // Navega a la página de detalle
+      this.router.navigate(['/detalle-viaje']);
+    }
+  }
+
 
   cargarViajes() {
     const listaViajes = JSON.parse(localStorage.getItem('listaViajes') || '[]');
@@ -91,33 +104,33 @@ export class FindRidePage implements OnInit {
   }
 
   async aceptarViaje(viaje: any) {
-    if (this.esConductor()) {
-      alert('Solo los pasajeros pueden aceptar un viaje.');
-      return;
-    }
+  // Obtén el currentUser desde localStorage
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
 
-    const listaViajes = JSON.parse(localStorage.getItem('listaViajes') || '[]');
-    const viajeIndex = listaViajes.findIndex((v: any) => v.id === viaje.id);
 
-    if (viajeIndex > -1) {
-      const viajeAceptado = {
-        ...viaje,
-        correoUsuario: JSON.parse(localStorage.getItem('currentUser') || 'null').correoElectronico,
-        aceptado: true
-      };
+  // Si el usuario es un pasajero, proceder a aceptar el viaje
+  const listaViajes = JSON.parse(localStorage.getItem('listaViajes') || '[]');
+  const viajeIndex = listaViajes.findIndex((v: any) => v.id === viaje.id);
 
-      listaViajes[viajeIndex] = viajeAceptado;
-      localStorage.setItem('listaViajes', JSON.stringify(listaViajes));
+  if (viajeIndex > -1) {
+    const viajeAceptado = {
+      ...viaje,
+      correoUsuario: currentUser.correoElectronico,
+      aceptado: true,
+    };
 
-      const alert = await this.alertController.create({
-        header: '¡Viaje Aceptado!',
-        message: 'Has aceptado el viaje exitosamente.',
-        buttons: ['Cerrar'],
-      });
+    listaViajes[viajeIndex] = viajeAceptado;
+    localStorage.setItem('listaViajes', JSON.stringify(listaViajes));
 
-      await alert.present();
-    }
+    const alert = await this.alertController.create({
+      header: '¡Viaje Aceptado!',
+      message: 'Has aceptado el viaje exitosamente.',
+      buttons: ['Cerrar'],
+    });
+
+    await alert.present();
   }
+}
 
   async confirmarEliminacion() {
     const alert = await this.alertController.create({
@@ -158,8 +171,8 @@ export class FindRidePage implements OnInit {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'El precio del pasaje debe ser conversado con el conductor del vehículo',
-      message: 'Le aconsejamos que tome como referencia los precios de los colectivos locales',
+      header: 'Trate de tomar un viaje de acuerdo a sus Circunstancias',
+      message: 'Le aconsejamos que tome como referencia los viajes que pasen cerca de su Localizacion',
       buttons: ['Cerrar'],
     });
 

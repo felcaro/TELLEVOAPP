@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private router: Router,
+    private alertController: AlertController,
     private renderer: Renderer2
   ) {
     this.router.events.subscribe(event => {
@@ -53,8 +55,14 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/register']);
   }
 
-  private mostrarAlerta(mensaje: string) {
-    console.log(mensaje); 
+  private async mostrarAlerta(mensaje: string) {
+    const alert = await this.alertController.create({
+      header: 'Información',
+      message: mensaje,
+      buttons: ['OK'],
+    });
+  
+    await alert.present();
   }
 
   goHome() {

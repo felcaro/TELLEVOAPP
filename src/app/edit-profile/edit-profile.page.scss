@@ -57,8 +57,8 @@
     width: 100%;
   }
 
-  img[src="https://w7.pngwing.com/pngs/857/513/png-transparent-nissan-tiida-car-nissan-micra-nissan-sunny-nissan-compact-car-sedan-car-thumbnail.png"] {
-    width: 100%;          
+  img[src="https://www.nissan-cdn.net/content/dam/Nissan/cl/service/campanas-preventivas/400x250_TIIDA_C11.png.ximg.l_4_m.smart.png"] {
+    width: 105%;          
     max-width: 300px;      
     height: auto;          
     border-radius: 10px;   
@@ -68,4 +68,33 @@
     
   }
   
+  /* Squared button styling */
+ion-button {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px 0;
+  padding: 0 10px;
+  --border-radius: 10px !important;  /* Hace los botones más cuadrados */
+  height: 10px;  /* Altura fija para los botones */
+}
+
+/* Estilo específico para el botón dentro del ion-button */
+ion-button::part(native) {
+  border-radius: 50px !important;
+}
+
+/* Para asegurar que el contenido del botón también sea cuadrado */
+ion-button .button-native {
+  border-radius: 50px !important;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  ion-card {
+      max-width: 600px;
+  }
   
+  ion-button {
+      max-width: 400px;
+  }
+}

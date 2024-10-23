@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +20,8 @@ export class ProfilePage implements OnInit {
 
   constructor(
     private router: Router,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private alertController: AlertController
   ) { 
     this.checkUserSession();
   }
@@ -55,12 +57,25 @@ export class ProfilePage implements OnInit {
   }
 
   loadCarInfo() {
-    const storedCars: any[] = JSON.parse(localStorage.getItem('listaAutos') || '[]'); 
-    this.autoInfo = storedCars.find((car: any) => car.correo === this.userEmail) || null; 
+    if (this.userTipe === 'conductor') { 
+      const storedCars: any[] = JSON.parse(localStorage.getItem('listaAutos') || '[]'); 
+      this.autoInfo = storedCars.find((car: any) => car.correo === this.userEmail) || null; 
+    } else {
+      this.autoInfo = null;  
+    }
   }
 
-  onEditProfile() {
-    this.router.navigate(['/edit-profile']);
+  async onEditProfile() {
+    if (!this.isLoggedIn) {
+      const alert = await this.alertController.create({
+        header: 'Acceso Denegado',
+        message: 'Debe iniciar sesión para editar el perfil.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    } else {
+      this.router.navigate(['/edit-profile']);
+    }
   }
 
   cerrarSesion() {

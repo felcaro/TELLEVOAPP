@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { ModalController, Platform } from '@ionic/angular';
 declare var google: any;
 
 @Component({
@@ -10,17 +11,40 @@ declare var google: any;
 export class DetalleViajePage implements OnInit {
   @ViewChild('map', { static: false }) mapElement: ElementRef | undefined;
   
+  public viaje: any;
+  public origin: string = '';
+  public destination: string = '';
+
   public map: any;
   public distancia: string = '';
   public duracion: string = '';
-  public end: string = 'Salamanca 31 - melipilla';
+  public end: string = ''; // Puedes cambiar esto según tus necesidades
   public autocompleteItems: any[] = []; 
   public directionsService: any;
   public directionsDisplay: any;
 
-  constructor(private platform: Platform, private zone: NgZone) { }
+  constructor(
+    private platform: Platform, 
+    private zone: NgZone,
+    private route: ActivatedRoute,
+    private modalController: ModalController
+  ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    const viajeSeleccionado = localStorage.getItem('viajeSeleccionado');
+    if (viajeSeleccionado) {
+      this.viaje = JSON.parse(viajeSeleccionado);
+      this.origin = this.viaje.origin;   // Origen del viaje
+      this.destination = this.viaje.destination; // Destino del viaje
+      this.end = this.origin;
+
+      // Asegúrate de que origin y destination están definidos
+      if (!this.origin || !this.destination) {
+        console.error('No se pudo obtener el origen o destino del viaje');
+      }
+    }
+  }
+
 
   ionViewDidEnter() {
     this.platform.ready().then(() => {
@@ -32,7 +56,7 @@ export class DetalleViajePage implements OnInit {
     this.directionsService = new google.maps.DirectionsService();
     this.directionsDisplay = new google.maps.DirectionsRenderer();
 
-    let mapOptions = {
+    const mapOptions = {
       zoom: 5,
       zoomControl: false,
       scaleControl: false,
@@ -44,7 +68,7 @@ export class DetalleViajePage implements OnInit {
 
     this.map = new google.maps.Map(this.mapElement!.nativeElement, mapOptions);
 
-    let infoWindow = new google.maps.InfoWindow();
+    const infoWindow = new google.maps.InfoWindow();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
         const pos = {
@@ -52,19 +76,24 @@ export class DetalleViajePage implements OnInit {
           lng: position.coords.longitude,
         };
         infoWindow.setPosition(pos);
-        infoWindow.setContent("Estas aquí.");
+        infoWindow.setContent("Estás aquí.");
         infoWindow.open(this.map);
         this.map.setCenter(pos);
       });
     }
     this.directionsDisplay.setMap(this.map);
-    this.calculateAndDisplayRoute();
+    this.calculateAndDisplayRoute(); // Ahora utilizará origin y destination correctos
   }
 
   calculateAndDisplayRoute() {
+    if (!this.origin || !this.destination) {
+      console.error('No se pudo calcular la ruta: falta origen o destino');
+      return;
+    }
+
     this.directionsService.route({
-      origin: 'Duoc UC: Sede Melipilla - Serrano, Melipilla, Chile',
-      destination: this.end,
+      origin: this.origin, // Usa el origen del viaje
+      destination: this.destination, // Usa el destino del viaje
       travelMode: 'DRIVING',
     }, (response: any, status: string) => {
       if (status === 'OK') {
@@ -79,7 +108,7 @@ export class DetalleViajePage implements OnInit {
         const seconds = durationInSeconds % 60;
         this.duracion = `${minutes}:${seconds.toString().padStart(2, '0')}`;
       } else {
-        window.alert('Directions request failed due to ' + status);
+        window.alert('La solicitud de direcciones falló debido a ' + status);
       }
     });
   }

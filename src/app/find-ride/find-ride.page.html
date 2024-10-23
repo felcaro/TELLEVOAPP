@@ -5,7 +5,7 @@
     <ion-buttons slot="end">
       <ion-button fill="clear" (click)="presentAlert()">
         <ion-icon name="information-circle-outline"></ion-icon>
-        Precios
+        Viajes
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -14,7 +14,7 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let viaje of viajes" (click)="abrirModal(viaje)">
-      <!-- <img [src]="viaje.imagenAuto" class="car-image" alt="Foto del auto" bueno esto lo dejo tal cual por si se llega a cagar alguna funcion atte: pipex> -->       
+      <!-- <img [src]="viaje.imagenAuto" class="car-image" alt="Foto del auto" bueno esto lo dejo tal cual por si se llega a cagar alguna funcion atte: pipex>        -->
       <img src="https://www.transmedia.cl/wp-content/uploads/2019/11/Captura-de-pantalla-2019-11-11-a-las-13.45.15-e1573491095571.png" class="car-image" alt="Foto del auto">
       <ion-label class="car-details">
         <h2>{{ viaje.nombreChofer }}</h2>
@@ -41,7 +41,7 @@
             Eliminar Viaje
           </ion-button>
           <!-- <img [src]="viajeSeleccionado.imagenAuto" class="car-image-large" alt="Foto del auto" lo mismo que arriva> -->
-          <img src="https://www.transmedia.cl/wp-content/uploads/2019/11/Captura-de-pantalla-2019-11-11-a-las-13.45.15-e1573491095571.png" class="car-image-large" alt="Foto del auto">
+          <img src="https://www.transmedia.cl/wp-content/uploads/2019/11/Captura-de-pantalla-2019-11-11-a-las-13.45.15-e1573491095571.png" class="car-image-large" alt="Foto del auto" (click)="irADetalleViaje(viajeSeleccionado.id)" (click)="cerrarModal()">
           <h2>{{ viajeSeleccionado.nombreChofer }}</h2>
           <h1>{{ viajeSeleccionado.price }} CLP</h1>
           <p>Salida: {{ viajeSeleccionado.origin }}</p>

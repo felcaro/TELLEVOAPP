@@ -1,5 +1,4 @@
-
-/* Importaciones de Ionic (mantenidas del código anterior) */
+/* Importaciones de Ionic */
 @import "@ionic/angular/css/core.css";
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
@@ -12,50 +11,62 @@
 @import "@ionic/angular/css/flex-utils.css";
 @import "@ionic/angular/css/palettes/dark.system.css";
 
+/* Variables del tema - Modo claro */
 :root {
-  /* Paleta de colores inspirada en Japón */
-  --ion-color-primary: #D64F45; /* Rojo vermellón */
+  /* Variables de transición */
+  --theme-transition-duration-bg: 2s;
+  --theme-transition-duration-color: 2s;
+  --theme-transition-duration-ui: 2s;
+  --theme-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Colores primarios */
+  --ion-color-primary: #D64F45;
   --ion-color-primary-rgb: 214,79,69;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255,255,255;
   --ion-color-primary-shade: #bc463d;
   --ion-color-primary-tint: #da6158;
 
-  --ion-color-secondary: #1B3A53; /* Azul índigo */
+
+  /* Colores secundarios */
+  --ion-color-secondary: #1B3A53;
   --ion-color-secondary-rgb: 27,58,83;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255,255,255;
   --ion-color-secondary-shade: #183349;
   --ion-color-secondary-tint: #324e64;
 
-  --ion-color-tertiary: #8C4B3C; /* Marrón caoba */
+  /* Colores terciarios */
+  --ion-color-tertiary: #8C4B3C;
   --ion-color-tertiary-rgb: 140,75,60;
   --ion-color-tertiary-contrast: #ffffff;
   --ion-color-tertiary-contrast-rgb: 255,255,255;
   --ion-color-tertiary-shade: #7b4235;
   --ion-color-tertiary-tint: #985d50;
 
-  --ion-color-success: #7BA23F; /* Verde oliva */
+  /* Colores de estado */
+  --ion-color-success: #7BA23F;
   --ion-color-success-rgb: 123,162,63;
   --ion-color-success-contrast: #000000;
   --ion-color-success-contrast-rgb: 0,0,0;
   --ion-color-success-shade: #6c8f37;
   --ion-color-success-tint: #88ab52;
 
-  --ion-color-warning: #FBA922; /* Amarillo mostaza */
+  --ion-color-warning: #FBA922;
   --ion-color-warning-rgb: 251,169,34;
   --ion-color-warning-contrast: #000000;
   --ion-color-warning-contrast-rgb: 0,0,0;
   --ion-color-warning-shade: #dd951e;
   --ion-color-warning-tint: #fbb238;
 
-  --ion-color-danger: #C73E36; /* Rojo escarlata */
+  --ion-color-danger: #C73E36;
   --ion-color-danger-rgb: 199,62,54;
   --ion-color-danger-contrast: #ffffff;
   --ion-color-danger-contrast-rgb: 255,255,255;
   --ion-color-danger-shade: #af3730;
   --ion-color-danger-tint: #cd514a;
 
+  /* Colores de interfaz */
   --ion-color-medium: #6D7278;
   --ion-color-medium-rgb: 109,114,120;
   --ion-color-medium-contrast: #ffffff;
@@ -63,7 +74,7 @@
   --ion-color-medium-shade: #60646a;
   --ion-color-medium-tint: #7c8086;
 
-  --ion-color-light: #F0EAD6; /* Beige claro */
+  --ion-color-light: #F0EAD6;
   --ion-color-light-rgb: 240,234,214;
   --ion-color-light-contrast: #000000;
   --ion-color-light-contrast-rgb: 0,0,0;
@@ -74,85 +85,149 @@
 /* Modo oscuro */
 @media (prefers-color-scheme: dark) {
   :root {
-    --ion-color-primary: #FF6B6B; /* Rojo coral */
+
+    /* Variables de transición */
+  --theme-transition-duration-bg: 2s;
+  --theme-transition-duration-color: 2s;
+  --theme-transition-duration-ui: 2s;
+  --theme-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+    /* Colores primarios - Modo oscuro */
+    --ion-color-primary: #FF6B6B;
     --ion-color-primary-rgb: 255,107,107;
     --ion-color-primary-contrast: #000000;
     --ion-color-primary-contrast-rgb: 0,0,0;
     --ion-color-primary-shade: #e05e5e;
     --ion-color-primary-tint: #ff7a7a;
 
-    --ion-color-secondary: #4ECDC4; /* Turquesa */
+    /* Colores secundarios - Modo oscuro */
+    --ion-color-secondary: #4ECDC4;
     --ion-color-secondary-rgb: 78,205,196;
     --ion-color-secondary-contrast: #000000;
     --ion-color-secondary-contrast-rgb: 0,0,0;
     --ion-color-secondary-shade: #45b4ac;
     --ion-color-secondary-tint: #60d2ca;
 
-    --ion-color-tertiary: #FFA07A; /* Salmón claro */
+    /* Colores terciarios - Modo oscuro */
+    --ion-color-tertiary: #FFA07A;
     --ion-color-tertiary-rgb: 255,160,122;
     --ion-color-tertiary-contrast: #000000;
     --ion-color-tertiary-contrast-rgb: 0,0,0;
     --ion-color-tertiary-shade: #e08d6b;
     --ion-color-tertiary-tint: #ffaa87;
 
-    --ion-color-success: #98FB98; /* Verde menta */
+    /* Colores de estado - Modo oscuro */
+    --ion-color-success: #98FB98;
     --ion-color-success-rgb: 152,251,152;
     --ion-color-success-contrast: #000000;
     --ion-color-success-contrast-rgb: 0,0,0;
     --ion-color-success-shade: #86dd86;
     --ion-color-success-tint: #a2fba2;
 
-    --ion-color-warning: #FFD700; /* Oro */
+    --ion-color-warning: #FFD700;
     --ion-color-warning-rgb: 255,215,0;
     --ion-color-warning-contrast: #000000;
     --ion-color-warning-contrast-rgb: 0,0,0;
     --ion-color-warning-shade: #e0bd00;
     --ion-color-warning-tint: #ffdb1a;
 
-    --ion-color-danger: #FF6347; /* Tomate */
+    --ion-color-danger: #FF6347;
     --ion-color-danger-rgb: 255,99,71;
     --ion-color-danger-contrast: #000000;
     --ion-color-danger-contrast-rgb: 0,0,0;
     --ion-color-danger-shade: #e0573e;
     --ion-color-danger-tint: #ff7359;
 
-    --ion-color-dark: #F0EAD6; /* Beige claro */
+    /* Colores de interfaz - Modo oscuro */
+    --ion-color-dark: #F0EAD6;
     --ion-color-dark-rgb: 240,234,214;
     --ion-color-dark-contrast: #000000;
     --ion-color-dark-contrast-rgb: 0,0,0;
     --ion-color-dark-shade: #d3cebb;
     --ion-color-dark-tint: #f2ecda;
 
-    --ion-color-medium: #BDB76B; /* Caqui */
+    --ion-color-medium: #BDB76B;
     --ion-color-medium-rgb: 189,183,107;
     --ion-color-medium-contrast: #000000;
     --ion-color-medium-contrast-rgb: 0,0,0;
     --ion-color-medium-shade: #a6a15e;
     --ion-color-medium-tint: #c4be7a;
 
-    --ion-color-light: #2F4F4F; /* Gris pizarra oscuro */
+    --ion-color-light: #2F4F4F;
     --ion-color-light-rgb: 47,79,79;
     --ion-color-light-contrast: #ffffff;
     --ion-color-light-contrast-rgb: 255,255,255;
     --ion-color-light-shade: #294646;
     --ion-color-light-tint: #446161;
 
+    /* Variables de fondo - Modo oscuro */
     --ion-background-color: #1A1A1A;
     --ion-background-color-rgb: 26,26,26;
-
     --ion-text-color: #ffffff;
     --ion-text-color-rgb: 255,255,255;
-
     --ion-border-color: #333333;
-
     --ion-item-background: #2A2A2A;
-
     --ion-toolbar-background: #2A2A2A;
-
     --ion-tab-bar-background: #2A2A2A;
-
     --ion-card-background: #2A2A2A;
   }
+}
+
+/* Transiciones para elementos de interfaz */
+body,
+ion-content,
+ion-item,
+ion-card,
+ion-toolbar,
+ion-header,
+ion-footer,
+ion-tab-bar,
+ion-input,
+ion-textarea,
+ion-select,
+ion-button,
+.ruta,
+#rutas,
+.theme-toggle {
+  transition: 
+    background-color var(--theme-transition-duration-bg) var(--theme-transition-timing),
+    color var(--theme-transition-duration-color) var(--theme-transition-timing),
+    border-color var(--theme-transition-duration-ui) var(--theme-transition-timing),
+    box-shadow var(--theme-transition-duration-ui) var(--theme-transition-timing);
+}
+
+/* Transiciones específicas para contenedores */
+ion-content,
+ion-item,
+ion-card,
+ion-toolbar {
+  transition: 
+    background var(--theme-transition-duration-bg) var(--theme-transition-timing),
+    background-color var(--theme-transition-duration-bg) var(--theme-transition-timing);
+}
+
+/* Transiciones para elementos de texto */
+ion-label,
+ion-text,
+ion-title,
+ion-card-title,
+ion-card-subtitle,
+p,
+h1, h2, h3, h4, h5, h6 {
+  transition: 
+    color var(--theme-transition-duration-color) var(--theme-transition-timing);
+}
+
+/* Clase para modo oscuro manual */
+.dark-theme {
+  --ion-background-color: #1A1A1A;
+  --ion-background-color-rgb: 26,26,26;
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255,255,255;
+  --ion-border-color: #333333;
+  --ion-item-background: #2A2A2A;
+  --ion-toolbar-background: #2A2A2A;
+  --ion-tab-bar-background: #2A2A2A;
+  --ion-card-background: #2A2A2A;
 }
 
 /* Estilos personalizados para TeLlevoApp */
@@ -165,7 +240,7 @@ body {
   margin-bottom: 20px;
 }
 
-.logo-in img {
+.logo{
   width: 120px;
   height: auto;
   animation: floatLogo 3s ease-in-out infinite;
@@ -176,7 +251,7 @@ body {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-7px);
   }
   100% {
     transform: translateY(0px);
@@ -365,7 +440,10 @@ ion-input, ion-select {
 
   .alert-radio-label.sc-ion-alert-md {
     color: #ffffff;
-}
+  }
+  [aria-checked=true].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md {
+   color: #ffffff;
+  }
   ion-select-option {
    color: #ffffff; 
   }
@@ -373,3 +451,10 @@ ion-input, ion-select {
     color: #ffffff;
   }
 }
+
+
+
+
+
+
+

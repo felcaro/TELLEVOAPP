@@ -6,7 +6,7 @@ import { NavController, AlertController } from '@ionic/angular';
   templateUrl: './offer-ride.page.html',
   styleUrls: ['./offer-ride.page.scss'],
 })
-export class OfferRidePage implements OnInit{
+export class OfferRidePage implements OnInit {
 
   isDarkMode: boolean = false;
   ride = {
@@ -51,9 +51,14 @@ export class OfferRidePage implements OnInit{
       return this.showAlert('Acceso Denegado', 'Solo un conductor puede crear un viaje.');
     }
 
+    // Validación de los inputs
+    if (!this.validateInputs()) {
+      return this.showAlert('Validación Fallida', 'Por favor, completa todos los campos requeridos.');
+    }
+
     const newRide = {
       ...this.ride,
-      id: this.generateUniqueId(currentUser.correoElectronico),
+      id: this.generateUniqueId(),
       correoUsuario: currentUser.correoElectronico
     };
 
@@ -85,8 +90,20 @@ export class OfferRidePage implements OnInit{
     await confirmAlert.present();
   }
 
-  generateUniqueId(email: string): string {
-    return email + '_' + Date.now(); // ID único basado en el correo y timestamp
+  validateInputs(): boolean {
+    return this.ride.origin.trim() !== '' &&
+           this.ride.destination.trim() !== '' &&
+           this.ride.date.trim() !== '' &&
+           this.ride.time.trim() !== '' &&
+           this.ride.seats > 0 &&
+           this.ride.price > 0;
+  }
+
+  generateUniqueId(): number {
+    let currentId = parseInt(localStorage.getItem('currentRideId') || '0', 10);
+    currentId++;
+    localStorage.setItem('currentRideId', currentId.toString());
+    return currentId;
   }
 
   async showAlert(header: string, message: string) {
@@ -95,6 +112,16 @@ export class OfferRidePage implements OnInit{
       message,
       buttons: ['OK']
     });
+    await alert.present();
+  }
+
+  async presentAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Trate de Ingresar Datos precisos',
+      message: 'Le aconsejamos que busque su direccion correcta para evitar confusiones',
+      buttons: ['Cerrar'],
+    });
+
     await alert.present();
   }
 }

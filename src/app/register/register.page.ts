@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
@@ -7,7 +7,7 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage {
+export class RegisterPage implements OnInit{
 
   // Variables usuario
   nombreCompleto: string = '';
@@ -16,11 +16,14 @@ export class RegisterPage {
   confirmarContrasena: string = '';
   tipoRegistro: string = '';
 
+
+  isDarkMode: boolean = false;
   sw: boolean = false;
 
   constructor(
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private renderer: Renderer2
   ) { }
 
 
@@ -31,6 +34,28 @@ export class RegisterPage {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  ngOnInit() {
+    const savedTheme = localStorage.getItem('isDarkMode');
+    if (savedTheme) {
+      this.isDarkMode = JSON.parse(savedTheme);
+      this.applyTheme();
+    }
+  }
+
+  private applyTheme() {
+    if (this.isDarkMode) {
+      this.renderer.addClass(document.body, 'dark-theme');
+    } else {
+      this.renderer.removeClass(document.body, 'dark-theme');
+    }
+  }
+
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('isDarkMode', JSON.stringify(this.isDarkMode));
+    this.applyTheme();
   }
 
   // Método de registro
@@ -93,3 +118,5 @@ export class RegisterPage {
   }
 
 }
+
+

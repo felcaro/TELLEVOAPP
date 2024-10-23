@@ -1,35 +1,57 @@
-ion-content{
+/* Main content container */
+ion-content {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     height: 100%;
     padding-bottom: 20px;
-    
-    
 }
 
-ion-card{
+/* Card styling */
+ion-card {
     width: 95%;
     max-width: 400px;
     margin-top: 20px;
 }
 
-.buttons-container{
+/* Container for button groups */
+.buttons-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    border: 5px;
-    border-radius: 5px solid transparent;
-    
+    border: 5px solid transparent;
+    border-radius: 5px;
 }
 
-ion-button{
-    margin-top: 15px;
+/* Squared button styling */
+ion-button {
     width: 100%;
-    max-width: 500px;
-    margin-bottom: 15px;
+    max-width: 400px;
+    margin: 20px 0;
     padding: 0 10px;
+    --border-radius: 10px !important;  /* Hace los botones más cuadrados */
+    height: 10px;  /* Altura fija para los botones */
+}
+
+/* Estilo específico para el botón dentro del ion-button */
+ion-button::part(native) {
+    border-radius: 50px !important;
+}
+
+/* Para asegurar que el contenido del botón también sea cuadrado */
+ion-button .button-native {
+    border-radius: 50px !important;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    ion-card {
+        max-width: 600px;
+    }
     
+    ion-button {
+        max-width: 400px;
+    }
 }
