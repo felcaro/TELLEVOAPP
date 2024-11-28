@@ -10,9 +10,7 @@ import { AlertController } from '@ionic/angular';
 export class ProfilePage implements OnInit {
 
   isLoggedIn: boolean = false;
-
   isDarkMode: boolean = false;
-
   userName: string = 'Invitado';
   userEmail: string = '';
   userTipe: string = 'Inicie Sesion para ver Informacion';
@@ -22,17 +20,20 @@ export class ProfilePage implements OnInit {
     private router: Router,
     private renderer: Renderer2,
     private alertController: AlertController
-  ) { 
-    this.checkUserSession();
-  }
+  ) { }
 
   ngOnInit() {
-    this.loadCarInfo();
     const savedTheme = localStorage.getItem('isDarkMode');
     if (savedTheme) {
       this.isDarkMode = JSON.parse(savedTheme);
       this.applyTheme();
     }
+  }
+
+  ionViewWillEnter() {
+    console.log('Entrando a ProfilePage...');
+    this.checkUserSession();
+    this.loadCarInfo();
   }
 
   toggleTheme() {
@@ -51,7 +52,6 @@ export class ProfilePage implements OnInit {
 
   checkUserSession() {
     const usuarioConectado = JSON.parse(localStorage.getItem('currentUser') || 'null');
-
     if (usuarioConectado) {
       this.userName = usuarioConectado.nombreCompleto || 'Invitado';
       this.userEmail = usuarioConectado.correoElectronico || '';
@@ -84,16 +84,37 @@ export class ProfilePage implements OnInit {
     }
   }
 
-  cerrarSesion() {
-    const usuarioConectado = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    console.log('Usuario que cierra sesión:', usuarioConectado);
-    this.isLoggedIn = false;
-    localStorage.removeItem('currentUser');
-    this.router.navigate(['/login']); 
+  async cerrarSesion() {
+    const confirmAlert = await this.alertController.create({
+      header: 'Confirmar cierre de sesión',
+      message: '¿Estás seguro de que deseas cerrar sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cierre de sesión cancelado.');
+          },
+        },
+        {
+          text: 'Cerrar sesión',
+          handler: () => {
+            const usuarioConectado = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            console.log('Usuario que cierra sesión:', usuarioConectado);
+            this.isLoggedIn = false;
+            localStorage.removeItem('currentUser');
+            this.router.navigate(['/login']);
+            console.log('Sesión cerrada con éxito.');
+          },
+        },
+      ],
+    });
+    await confirmAlert.present();
   }
+
+  
 
   iniciarSesion() {
     this.router.navigate(['/login']);
   }
-
 }

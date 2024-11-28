@@ -43,15 +43,17 @@ export class OfferRidePage implements OnInit {
   async onSubmit() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
 
+    // Verificar si el usuario está autenticado
     if (!currentUser) {
       return this.showAlert('Error', 'Debes iniciar sesión para crear un viaje.');
     }
 
+    // Verificar que el usuario sea conductor
     if (currentUser.tipoRegistro !== 'conductor') {
       return this.showAlert('Acceso Denegado', 'Solo un conductor puede crear un viaje.');
     }
 
-    // Validación de los inputs
+    // Validación de los campos del formulario
     if (!this.validateInputs()) {
       return this.showAlert('Validación Fallida', 'Por favor, completa todos los campos requeridos.');
     }

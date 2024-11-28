@@ -13,6 +13,7 @@ export class FindRidePage implements OnInit {
   listaUsuarios: any[] = [];
   mostrarModal = false;
   viajeSeleccionado: any;
+  viajesAceptados: any[] = [];
 
   isDarkMode: boolean = false;
 
@@ -74,6 +75,7 @@ export class FindRidePage implements OnInit {
         if (usuario) {
           viaje.nombreChofer = usuario.nombreCompleto;
         } else {
+          console.warn(`No se encontró el usuario para el correo: ${viaje.correoUsuario}`);
           viaje.nombreChofer = 'Desconocido';
         }
       });
@@ -110,10 +112,7 @@ export class FindRidePage implements OnInit {
 
 
   async aceptarViaje(viaje: any) {
-    // Obtén el currentUser desde localStorage
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-  
-    // Verifica que el currentUser exista y que sea un pasajero
     if (!currentUser || currentUser.tipoRegistro !== 'pasajero') {
       const alert = await this.alertController.create({
         header: 'Error',
@@ -124,13 +123,10 @@ export class FindRidePage implements OnInit {
       return;
     }
   
-    // Cargar la lista de viajes aceptados desde localStorage
-    const listaViajesAceptados = JSON.parse(localStorage.getItem('viajesAceptados') || '[]');
-  
-    // Verifica si el pasajero ya ha aceptado este viaje (filtrando por ID de viaje y correo del pasajero)
-    const yaAceptado = listaViajesAceptados.some((v: any) => v.id === viaje.id && v.correoPasajero === currentUser.correoElectronico);
-  
-    if (yaAceptado) {
+    // Verificar si el viaje ya ha sido aceptado
+    const viajeExistente = this.viajesAceptados.find((v: any) => v.id === viaje.id && v.correoPasajero === currentUser.correoElectronico);
+    
+    if (viajeExistente) {
       const alert = await this.alertController.create({
         header: 'Error',
         message: 'Ya has aceptado este viaje.',
@@ -140,40 +136,66 @@ export class FindRidePage implements OnInit {
       return;
     }
   
-    // Guardar el viaje aceptado en la lista de viajes aceptados del pasajero
-    const nuevoViajeAceptado = {
-      ...viaje,
-      correoPasajero: currentUser.correoElectronico
-    };
-    listaViajesAceptados.push(nuevoViajeAceptado);
+    if (viaje.seats > 0) {
+      // Restar un asiento al viaje
+      viaje.seats -= 1;
   
-    // Guardar la lista de viajes aceptados actualizada en localStorage
-    localStorage.setItem('viajesAceptados', JSON.stringify(listaViajesAceptados));
+      // Agregar el viaje a los viajes aceptados
+      this.viajesAceptados.push({
+        ...viaje,
+        correoPasajero: currentUser.correoElectronico, // Asegúrate de asociar al pasajero
+      });
   
-    // Mostrar mensaje de confirmación
-    const alert = await this.alertController.create({
-      header: '¡Viaje Aceptado!',
-      message: 'Has aceptado el viaje exitosamente.',
-      buttons: ['Cerrar'],
-    });
-    await alert.present();
+      // Actualizar la lista de viajes aceptados en localStorage
+      let viajesAceptados = JSON.parse(localStorage.getItem('viajesAceptados') || '[]');
+      viajesAceptados.push({
+        ...viaje,
+        correoPasajero: currentUser.correoElectronico,
+      });
+      localStorage.setItem('viajesAceptados', JSON.stringify(viajesAceptados));
+  
+      // Actualizar los viajes disponibles en localStorage
+      let listaViajes = JSON.parse(localStorage.getItem('listaViajes') || '[]');
+      const viajeIndex = listaViajes.findIndex((v: any) => v.id === viaje.id);
+      
+      if (viajeIndex > -1) {
+        listaViajes[viajeIndex].seats = viaje.seats;  // Actualizamos la cantidad de asientos
+        localStorage.setItem('listaViajes', JSON.stringify(listaViajes));
+      }
+  
+      // Mostrar confirmación
+      const alert = await this.alertController.create({
+        header: 'Viaje Aceptado',
+        message: 'El viaje ha sido aceptado correctamente.',
+        buttons: ['Cerrar'],
+      });
+      await alert.present();
+    } else {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'No hay asientos disponibles para este viaje.',
+        buttons: ['Cerrar'],
+      });
+      await alert.present();
+    }
   }
   
+  
+  
+  
+ puedeSolicitarViaje(): boolean {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  const solicitudes = JSON.parse(localStorage.getItem('viajesSolicitados') || '[]');
+  
+  // Verificar si el pasajero tiene una solicitud pendiente
+  return !solicitudes.some((solicitud: any) => solicitud.correoPasajero === currentUser.correoElectronico && !solicitud.aceptado);
+  } 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
+// NO BORRAR NI TOCAR ESTAS FUNCIONES PARA ABAJO
   async confirmarEliminacion() {
     const alert = await this.alertController.create({
       header: 'Eliminar Viaje',
@@ -198,6 +220,7 @@ export class FindRidePage implements OnInit {
     await alert.present();
   }
 
+  
   eliminarViaje() {
     const listaViajes = JSON.parse(localStorage.getItem('listaViajes') || '[]');
     const viajeIndex = listaViajes.findIndex((v: any) => v.id === this.viajeSeleccionado.id);

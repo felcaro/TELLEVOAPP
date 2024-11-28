@@ -1,4 +1,3 @@
-<!-- find-ride.page.html -->
 <ion-header>
   <ion-toolbar class="custom-toolbar">
     <ion-title>Buscar Viajes</ion-title>
@@ -14,7 +13,6 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let viaje of viajes" (click)="abrirModal(viaje)">
-      <!-- <img [src]="viaje.imagenAuto" class="car-image" alt="Foto del auto" bueno esto lo dejo tal cual por si se llega a cagar alguna funcion atte: pipex>        -->
       <img src="https://www.transmedia.cl/wp-content/uploads/2019/11/Captura-de-pantalla-2019-11-11-a-las-13.45.15-e1573491095571.png" class="car-image" alt="Foto del auto">
       <ion-label class="car-details">
         <h2>{{ viaje.nombreChofer }}</h2>
@@ -24,6 +22,7 @@
     </ion-item>
   </ion-list>
 
+  <!-- Modal para detalles del viaje -->
   <ion-modal [isOpen]="mostrarModal">
     <ng-template>
       <ion-header>
@@ -37,11 +36,13 @@
 
       <ion-content>
         <div class="modal-content">
+          <!-- Botón para eliminar el viaje, solo visible para el creador -->
           <ion-button *ngIf="esCreadorDelViaje()" (click)="confirmarEliminacion()">
             Eliminar Viaje
           </ion-button>
-          <!-- <img [src]="viajeSeleccionado.imagenAuto" class="car-image-large" alt="Foto del auto" lo mismo que arriva> -->
+
           <img src="https://www.transmedia.cl/wp-content/uploads/2019/11/Captura-de-pantalla-2019-11-11-a-las-13.45.15-e1573491095571.png" class="car-image-large" alt="Foto del auto" (click)="irADetalleViaje(viajeSeleccionado.id)" (click)="cerrarModal()">
+          
           <h2>{{ viajeSeleccionado.nombreChofer }}</h2>
           <h1>{{ viajeSeleccionado.price }} CLP</h1>
           <p>Salida: {{ viajeSeleccionado.origin }}</p>
@@ -50,8 +51,14 @@
           <p>Hora: {{ viajeSeleccionado.time }}</p>
           <p>Asientos disponibles: {{ viajeSeleccionado.seats }}</p>
 
-          <ion-button (click)="aceptarViaje(viajeSeleccionado)" expand="full" color="primary">
+          <!-- Botón de aceptación del viaje, solo visible si el pasajero no ha solicitado el viaje previamente -->
+          <ion-button expand="block" *ngIf="viajeSeleccionado.seats > 0 && puedeSolicitarViaje()" (click)="aceptarViaje(viajeSeleccionado)">
             Aceptar Viaje
+          </ion-button>
+
+          <!-- Mensaje cuando el viaje está lleno -->
+          <ion-button expand="block" *ngIf="viajeSeleccionado.seats === 0" disabled>
+            Viaje lleno
           </ion-button>
         </div>
       </ion-content>

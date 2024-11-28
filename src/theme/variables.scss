@@ -37,6 +37,106 @@ $opacity-heavy: 0.3;
 $breakpoint-tablet: 768px;
 $breakpoint-desktop: 1024px;
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+// Variables de diseño
+$font-family-base: 'Noto Sans JP', sans-serif;
+$spacing-small: 8px;
+$spacing-medium: 16px;
+$spacing-large: 24px;
+$border-radius-small: 4px;
+$border-radius-medium: 8px;
+$border-radius-large: 12px;
+$transition-duration: 0.3s;
+$transition-timing: ease;
+
+// Estilos para el modal de recuperación de contraseña
+#contenedor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: $spacing-large;
+  font-family: $font-family-base;
+
+  .titulo {
+    color: var(--ion-color-primary);
+    font-size: 24px;
+    margin-bottom: $spacing-large;
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+  }
+
+  ion-item {
+    --border-radius: #{$border-radius-medium};
+    margin-bottom: $spacing-medium;
+    transition: background-color $transition-duration $transition-timing;
+
+    &:hover {
+      --background: rgba(var(--ion-color-primary-rgb), 0.1);
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: $spacing-medium;
+    margin-top: $spacing-large;
+
+    ion-button {
+      --border-radius: #{$border-radius-small};
+      width: 100%;
+      text-transform: uppercase;
+      font-weight: 500;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: rgba(255,255,255,0.1);
+        transform: rotate(45deg);
+        transition: all 0.3s ease;
+      }
+
+      &:active::after {
+        left: -100%;
+        top: -100%;
+      }
+    }
+  }
+}
+
+// Animaciones
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Variantes de tema oscuro
+.dark-theme {
+  #contenedor {
+    background-color: var(--ion-background-color);
+
+    .titulo {
+      color: var(--ion-color-primary);
+    }
+
+    ion-button {
+      --color: var(--ion-text-color);
+    }
+  }
+}
+
+
 // Mixins útiles
 @mixin flex-center {
   display: flex;

@@ -59,6 +59,49 @@
       </ion-button>
 
       <p class="skip-link" (click)="goHome()">No por ahora</p>
+      <p class="skip-link" (click)="setOpen(true)">Recuperar Contraseña</p>
+      
+
     </form>
   </div>
 </ion-content>
+
+<ion-modal [isOpen]="isModalOpen">
+  
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>TeLlevoApp</ion-title>
+          <ion-buttons slot="end">
+            <ion-icon 
+              [name]="isDarkMode ? 'sunny' : 'moon'" 
+              (click)="toggleTheme()" 
+              class="theme-toggle-icon"
+              style="font-size: 24px; margin-right: 10px;"
+            ></ion-icon>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <div id="contenedor">
+          <h1 class="titulo">Recupera la clave</h1>
+          <ion-item>
+            <ion-input 
+              type="text"
+              placeholder="usuario@gmail.com"
+              [(ngModel)]="correoElectronico"
+            ></ion-input>
+          </ion-item>
+          <div class="button-container">
+            <ion-button (click)="resetPass()" color="primary">
+              Recuperar
+            </ion-button>
+            <ion-button (click)="setOpen(false)" color="medium" fill="outline">
+              Cancelar
+            </ion-button>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>

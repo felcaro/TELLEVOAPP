@@ -7,33 +7,71 @@
   </ion-toolbar>
 </ion-header>
 
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
 <ion-content class="ion-padding">
   <h1>Bienvenido a TeLlevoAPP</h1>
   <p>Encuentra o ofrece viajes compartidos de manera fácil y segura.</p>
 
-  <ion-card *ngFor="let ride of acceptedRides">
-    <ion-card-header>
-      <ion-card-subtitle>Viaje Aceptado</ion-card-subtitle>
-      <ion-card-title>{{ ride.destination }}</ion-card-title>
-    </ion-card-header>
+  <ng-container *ngIf="viajesCreados.length > 0 || viajesAceptados.length > 0">
+    <!-- Mostrar los viajes creados por el conductor -->
+    <ng-container *ngIf="viajesCreados.length > 0">
+      <h3>Viajes Creados</h3>
+      <ion-card *ngFor="let viaje of viajesCreados">
+        <ion-card-header>
+          <ion-card-subtitle>Viaje Creado</ion-card-subtitle>
+          <ion-card-title>{{ viaje.destination }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p><strong>Origen:</strong> {{ viaje.origin }}</p>
+          <p><strong>Destino:</strong> {{ viaje.destination }}</p>
+          <p><strong>Fecha:</strong> {{ viaje.date }}</p>
+          <p><strong>Hora:</strong> {{ viaje.time }}</p>
+          <p><strong>Asientos disponibles:</strong> {{ viaje.seats }}</p>
+        </ion-card-content>
+        <ion-button color="danger" (click)="confirmarBorrar(viaje)">Eliminar Viaje</ion-button>
+      </ion-card>
+    </ng-container>
+  
+    <!-- Mostrar los viajes aceptados por el pasajero -->
+    <ng-container *ngIf="viajesAceptados.length > 0">
+      <ion-card *ngFor="let viaje of viajesAceptados">
+        <ion-card-header>
+          <ion-card-subtitle>Viaje Aceptado</ion-card-subtitle>
+          <ion-card-title>{{ viaje.destination }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p><strong>Origen:</strong> {{ viaje.origin }}</p>
+          <p><strong>Destino:</strong> {{ viaje.destination }}</p>
+          <p><strong>Fecha:</strong> {{ viaje.date }}</p>
+          <p><strong>Hora:</strong> {{ viaje.time }}</p>
+          <p><strong>Asientos disponibles:</strong> {{ viaje.seats }}</p>
+        </ion-card-content>
+        <ion-button color="danger" (click)="cancelarViaje(viaje)">Cancelar Viaje</ion-button>
+      </ion-card>
+    </ng-container>
+  </ng-container>
+  
+  <!-- Si no hay viajes creados ni aceptados -->
+  <ion-card *ngIf="viajesCreados.length === 0 && viajesAceptados.length === 0">
     <ion-card-content>
-      <p>Fecha: {{ ride.date }}</p>
-      <p>Hora: {{ ride.time }}</p>
-      <p>Conductor: {{ ride.nombreChofer }}</p>
+      <p>No tienes viajes creados ni aceptados.</p>
     </ion-card-content>
-      <ion-button color="danger" (click)="cancelarViaje(ride)">Cancelar Viaje</ion-button>
   </ion-card>
 
-  <!-- Si no hay viajes aceptados, mostramos un mensaje -->
-  <ion-card *ngIf="acceptedRides.length === 0">
-    <ion-card-content>
-      <p>No has aceptado ningún viaje todavía.</p>
-    </ion-card-content>
-  </ion-card>
 
+  <!-- Botones de navegación -->
   <ion-button expand="block" (click)="findRide()">Buscar Viaje</ion-button>
   <ion-button expand="block" (click)="offerRide()">Ofrecer Viaje</ion-button>
-  <ion-button expand="block" (click)="borrarUsuarios()">Borrar usuarios</ion-button>
-  <ion-button expand="block" (click)="mostrarListaUsuarios()">Ver Lista de Usuarios</ion-button>
+  <!-- <ion-button expand="block" color="primary" (click)="mostrarDatosLocalStorage()">
+    Mostrar Datos LocalStorage
+  </ion-button>
+  <ion-button expand="block" color="danger" (click)="limpiarViajesSolicitados()">
+    Limpiar Solicitudes de Viaje
+  </ion-button>
+  <ion-button expand="block" color="danger" (click)="limpiarViajesSolicitadosYAceptados()">
+    Limpiar Solicitudes y Viajes Aceptados
+  </ion-button>
+  <ion-button color="danger" (click)="eliminarViaje()">Eliminar Viaje Aceptado</ion-button> -->
+
 </ion-content>
+
+
