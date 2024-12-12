@@ -32,6 +32,7 @@ export class EditProfilePage implements OnInit {
     this.usuarioConectado = JSON.parse(localStorage.getItem('currentUser') || '{}');
     this.isConductor = this.usuarioConectado.tipoRegistro === 'conductor';
 
+    
   }
 
   ngOnInit() {
@@ -43,6 +44,12 @@ export class EditProfilePage implements OnInit {
     if (savedTheme) {
       this.isDarkMode = JSON.parse(savedTheme);
       this.applyTheme();
+    }
+  }
+
+  onTipoRegistroChange() {
+    if (this.usuarioConectado.tipoRegistro === 'conductor') {
+      // Aquí puedes realizar cualquier acción adicional si el usuario es conductor
     }
   }
 
@@ -213,10 +220,10 @@ export class EditProfilePage implements OnInit {
   }
 
   goprofile() {
-    this.router.navigate(['/tabs/profile']);
+    this.router.navigate(['/profile']);
   }
 
   goHome() {
-    this.router.navigate(['/tabs/home']);
+    this.router.navigate(['/home']);
   }
 }

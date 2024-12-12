@@ -15,6 +15,16 @@ export class HomePage implements OnInit {
   solicitudesPendientes: any[] = [];
   viajesAceptados: any[] = [];
 
+  doRefresh(event: any) {
+    console.log('Inicio de refresco');
+  
+    // Aquí puedes recargar los datos o realizar cualquier otra acción
+    setTimeout(() => {
+      console.log('Refresco completado');
+      event.target.complete(); // Termina el refresco
+    }, 2000); // Simula una espera de 2 segundos
+  }
+
   constructor(
     private navCtrl: NavController,
     private alertController: AlertController,
@@ -253,12 +263,12 @@ export class HomePage implements OnInit {
 
   // Navegar a la página de "Find Ride"
   findRide() {
-    this.navCtrl.navigateForward('/tabs/find-ride');
+    this.navCtrl.navigateForward('/find-ride');
   }
 
   // Navegar a la página de "Offer Ride"
   offerRide() {
-    this.navCtrl.navigateForward('/tabs/offer-ride');
+    this.navCtrl.navigateForward('/offer-ride');
   }
 
   mostrarDatosLocalStorage() {
@@ -303,5 +313,8 @@ export class HomePage implements OnInit {
     }).then(alert => alert.present());
   }
 
+  navigateTo(url: string): void {
+    window.location.href = url; // Esto fuerza la recarga completa
+  }
 
 }

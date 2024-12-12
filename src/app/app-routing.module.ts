@@ -38,7 +38,8 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
-  },  {
+  },
+  {
     path: 'chat-car',
     loadChildren: () => import('./chat-car/chat-car.module').then( m => m.ChatCarPageModule)
   },
@@ -49,7 +50,7 @@ const routes: Routes = [
   {
     path: 'edit-profile',
     loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
-  }
+  },
 
 ];
 

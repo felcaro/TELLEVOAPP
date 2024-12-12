@@ -32,10 +32,13 @@
           label="Correo Electrónico" 
           labelPlacement="floating" 
           [clearInput]="true" 
-          placeholder="Ingrese su correo electrónico">
+          placeholder="Ingrese su correo electrónico"
+          required
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
         </ion-input>
       </div>
-
+      
+      <!-- Contraseña -->
       <div class="form-group password-group">
         <ion-input 
           [(ngModel)]="contrasena" 
@@ -46,12 +49,12 @@
           labelPlacement="floating" 
           [clearInput]="true" 
           placeholder="Ingrese su contraseña" 
-          [type]="sw ? 'text' : 'password'">
+          required
+          minlength="8">
         </ion-input>
-        <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">      
-        </button>
       </div>
-
+      
+      <!-- Confirmar Contraseña -->
       <div class="form-group">
         <ion-input 
           [(ngModel)]="confirmarContrasena" 
@@ -62,7 +65,8 @@
           labelPlacement="floating" 
           [clearInput]="true" 
           placeholder="Confirme su contraseña" 
-          [type]="sw ? 'text' : 'password'">
+          required
+          minlength="8">
         </ion-input>
       </div>
 

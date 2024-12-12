@@ -73,7 +73,7 @@ export class LoginPage implements OnInit {
   }
 
   goHome() {
-    this.router.navigate(['/tabs/home']);
+    this.router.navigate(['/home']);
   }
 
   logIn() {
@@ -91,7 +91,7 @@ export class LoginPage implements OnInit {
       if (usuarioEncontrado) {
         console.log('Inicio de sesión exitoso.');
         localStorage.setItem('currentUser', JSON.stringify(usuarioEncontrado));
-        this.router.navigate(['/tabs/home']);
+        this.router.navigate(['/home']);
       } else {
         console.log('Error: Credenciales incorrectas.');
         this.mostrarAlerta('Credenciales incorrectas.');

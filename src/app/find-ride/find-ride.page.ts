@@ -17,6 +17,16 @@ export class FindRidePage implements OnInit {
 
   isDarkMode: boolean = false;
 
+  doRefresh(event: any) {
+    console.log('Inicio de refresco');
+  
+    // Aquí puedes recargar los datos o realizar cualquier otra acción
+    setTimeout(() => {
+      console.log('Refresco completado');
+      event.target.complete(); // Termina el refresco
+    }, 2000); // Simula una espera de 2 segundos
+  }
+
   constructor(
     private router: Router,
     private modalController: ModalController,
@@ -35,6 +45,11 @@ export class FindRidePage implements OnInit {
       this.applyTheme();
     }
   }
+  
+  navigateTo(url: string): void {
+    window.location.href = url; // Esto fuerza la recarga completa
+  }
+
 
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;

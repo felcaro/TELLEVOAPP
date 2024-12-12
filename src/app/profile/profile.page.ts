@@ -30,6 +30,10 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  navigateTo(url: string): void {
+    window.location.href = url; // Esto fuerza la recarga completa
+  }
+
   ionViewWillEnter() {
     console.log('Entrando a ProfilePage...');
     this.checkUserSession();

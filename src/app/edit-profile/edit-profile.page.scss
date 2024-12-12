@@ -1,27 +1,35 @@
 
 #contenedor {
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    gap: 20px; 
-  
-  }
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  overflow: hidden; /* Evita el desbordamiento de contenido */
+
+  /* Estilo por defecto */
+  height: auto;  /* El tamaño por defecto será automático */
+}
+
+#contenedor.conductor {
+  /* Estilo cuando el usuario es conductor */
+  height: 1100px; /* Cambia la altura cuando el usuario es conductor */
+}
   
   .titulo {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
-  }
+    
+    }
   
   // Sección del usuario
   #userdata {
-    background-color: var(--ion-card-background, #ffffff);// Fondo blanco para la sección
-    border-radius: 8px; // Bordes redondeados
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Sombra para dar profundidad
-    padding: 20px; // Espaciado interno
-    margin-bottom: 20px; // Espacio entre secciones
-    gap: 15px; 
+    background-color: var(--ion-card-background, #ffffff); /* Fondo blanco */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    gap: 15px;
   }
   
   // Sección del auto
@@ -41,6 +49,7 @@
     border-radius: 8px; // Bordes redondeados
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Sombra para dar profundidad
     padding: 10px; // Espaciado interno
+
   }
   
   ion-input{
@@ -98,3 +107,4 @@ ion-button .button-native {
       max-width: 400px;
   }
 }
+

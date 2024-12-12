@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/profile"></ion-back-button>
+      <ion-back-button defaultHref="/profile"></ion-back-button>
     </ion-buttons>
     <ion-title>Volver</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" [class.expanded]="usuarioConectado.tipoRegistro === 'conductor'">
 
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -33,7 +33,7 @@
         <ion-input fill="outline" [(ngModel)]="usuarioConectado.correoElectronico" name="correoElectronico" label="Correo Electrónico" labelPlacement="floating" placeholder="Correo Electrónico" disabled></ion-input>
 <br>
         <ion-item>
-          <ion-select [(ngModel)]="usuarioConectado.tipoRegistro" name="tipoRegistro" label="Tipo de Usuario" label-placement="floating">
+          <ion-select [(ngModel)]="usuarioConectado.tipoRegistro" name="tipoRegistro" label="Tipo de Usuario" label-placement="floating" (ionChange)="onTipoRegistroChange()">
             <ion-select-option value="conductor">Conductor</ion-select-option>
             <ion-select-option value="pasajero">Pasajero</ion-select-option>
           </ion-select>

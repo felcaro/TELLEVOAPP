@@ -17,6 +17,16 @@ export class OfferRidePage implements OnInit {
     seats: 1,
     price: 0
   };
+  
+  doRefresh(event: any) {
+    console.log('Inicio de refresco');
+  
+    // Aquí puedes recargar los datos o realizar cualquier otra acción
+    setTimeout(() => {
+      console.log('Refresco completado');
+      event.target.complete(); // Termina el refresco
+    }, 2000); // Simula una espera de 2 segundos
+  }
 
   constructor(
     private navCtrl: NavController,
@@ -31,6 +41,11 @@ export class OfferRidePage implements OnInit {
       this.applyTheme();
     }
   }
+
+  navigateTo(url: string): void {
+    window.location.href = url; // Esto fuerza la recarga completa
+  }
+
 
   private applyTheme() {
     if (this.isDarkMode) {
@@ -83,7 +98,7 @@ export class OfferRidePage implements OnInit {
           text: 'Confirmar',
           handler: () => {
             console.log('Viaje ofrecido:', newRide);
-            this.navCtrl.navigateBack('/tabs/home');
+            this.navCtrl.navigateBack('/home');
           }
         }
       ]

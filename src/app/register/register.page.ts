@@ -61,29 +61,46 @@ export class RegisterPage implements OnInit{
   // Método de registro
   register() {
     console.log('Intentando registrar al usuario...');
-
-    // Verificar si las contraseñas coinciden
+  
+    // Validación de formato (Correo Electrónico)
+    const correoValido = this.validateEmail(this.correoElectronico);
+    if (!correoValido) {
+      this.mostrarAlerta('El correo electrónico debe tener un formato válido (ejemplo@dominio.com).');
+      return;
+    }
+  
+    // Validación de formato (Contraseña)
+    if (this.contrasena.length < 8) {
+      this.mostrarAlerta('La contraseña debe tener al menos 8 caracteres.');
+      return;
+    }
+  
+    // Validación de contraseñas coincidentes
     if (this.contrasena !== this.confirmarContrasena) {
-      console.log('Error: Las contraseñas no coinciden.');
       this.mostrarAlerta('Las contraseñas no coinciden.');
       return;
     }
-
+  
+    // Verificar si los campos están vacíos
+    if (!this.nombreCompleto || !this.correoElectronico || !this.contrasena || !this.confirmarContrasena || !this.tipoRegistro) {
+      this.mostrarAlerta('Todos los campos son obligatorios.');
+      return;
+    }
+  
     // Obtener los datos actuales de localStorage
     const storedData = localStorage.getItem('listaUsuarios');
     let listaUsuarios = storedData ? JSON.parse(storedData) : [];
-
+  
     // Verificar si el correo ya está registrado
     const usuarioExistente = listaUsuarios.find((user: { correoElectronico: string }) =>
       user.correoElectronico === this.correoElectronico
     );
-
+  
     if (usuarioExistente) {
-      console.log('Error: El correo electrónico ya está registrado.');
       this.mostrarAlerta('El correo electrónico ya está registrado.');
       return;
     }
-
+  
     // Datos del nuevo usuario a registrar
     const nuevoUsuario = {
       nombreCompleto: this.nombreCompleto,
@@ -91,26 +108,32 @@ export class RegisterPage implements OnInit{
       contrasena: this.contrasena,
       tipoRegistro: this.tipoRegistro
     };
-
+  
     // Agregar el nuevo usuario a la lista de usuarios
     listaUsuarios.push(nuevoUsuario);
-
+  
     // Guardar la lista actualizada en localStorage
     localStorage.setItem('listaUsuarios', JSON.stringify(listaUsuarios));
-
+  
     console.log('Usuario registrado correctamente:', nuevoUsuario);
     console.log('Lista actualizada de usuarios:', listaUsuarios);
-
-    
+  
     this.router.navigate(['/login']);
   }
+  
+  // Función de validación del correo
+  validateEmail(correo: string): boolean {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(correo);
+  }
+
 
   togglePasswordVisibility() {
     this.sw = !this.sw; 
   }
 
   goHome() {
-    this.router.navigate(['/tabs/home']);
+    this.router.navigate(['/home']);
   }
 
   gologIn() {

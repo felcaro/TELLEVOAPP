@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonTabs } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -7,15 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./tabs.page.scss'],
 })
 export class TabsPage implements OnInit {
+  @ViewChild(IonTabs) tabs!: IonTabs;
 
   constructor(
     private router: Router
+    
   ) { }
 
-  recargarTab(event: any) {
-    this.router.navigate([this.router.url]);
-  }
 
+
+  
 
   ngOnInit() {
   }

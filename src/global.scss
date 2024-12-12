@@ -235,7 +235,9 @@ body {
   font-family: 'Noto Sans JP', sans-serif; /* Fuente japonesa */
 }
 
+
 .logo-in {
+  justify-content: center;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -330,12 +332,12 @@ ion-input, ion-select {
 }
 
 #map {
-  height: 300px;
   width: 100%;
-  margin-bottom: 20px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 #info-viaje {
